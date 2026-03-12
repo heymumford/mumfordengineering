@@ -1699,6 +1699,542 @@ a:hover {
     }
 }
 
+/* ==========================================================================
+   ITERATION 3 — World Café Synthesis
+   Focus: Responsive, Focus States, Section Polish, Micro-interactions, Performance
+   ========================================================================== */
+
+
+/* ===== Focus States & Keyboard Navigation ===== */
+
+/* Skip link — engineering annotation tag on focus */
+.skip-link:focus {
+    top: 8px;
+    outline: 2px solid var(--accent-warm);
+    outline-offset: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 0;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* Custom focus rings — amber for interactive, cyan for form elements */
+.btn:focus-visible {
+    outline: 2px solid var(--accent-warm);
+    outline-offset: 3px;
+    box-shadow: none;
+}
+
+.nav-link:focus-visible {
+    outline: 2px solid var(--accent-warm);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+.software-card:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 3px;
+    border-radius: var(--radius);
+}
+
+.scroll-rail__dot:focus-visible {
+    outline: 2px solid var(--accent-warm);
+    outline-offset: 4px;
+}
+
+.footer-links a:focus-visible {
+    outline: 2px solid var(--accent-warm);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+.contact-detail a:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 3px;
+}
+
+/* Form focus-within: subtle container highlight */
+.form-group:focus-within {
+    background: rgba(26, 107, 122, 0.02);
+    border-radius: var(--radius);
+    margin: -4px;
+    padding: 4px;
+}
+
+.pill:focus-visible {
+    outline: 2px solid var(--accent-warm);
+    outline-offset: 2px;
+}
+
+
+/* ===== Writing Section — Engineering Aesthetic ===== */
+
+/* Blockquote: engineer's margin note with drafting annotation */
+.writing-quote {
+    position: relative;
+    margin-top: 0;
+    border-left-width: 3px;
+}
+
+.writing-quote::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -3px;
+    width: 3px;
+    height: 8px;
+    background: var(--accent-warm);
+}
+
+/* "Coming soon" text — drafting annotation feel */
+.writing-coming {
+    font-style: italic;
+    position: relative;
+    padding-left: 16px;
+    border-left: 1px dashed var(--text-tertiary);
+}
+
+/* Topic pills — engineering tolerance tags */
+.pill {
+    text-transform: uppercase;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border-radius: 0;
+    position: relative;
+}
+
+/* Small bracket marks on pills — like tolerance notation */
+.pill::before {
+    content: '[';
+    margin-right: 2px;
+    opacity: 0.4;
+}
+
+.pill::after {
+    content: ']';
+    margin-left: 2px;
+    opacity: 0.4;
+}
+
+
+/* ===== Contact Section — Spec Sheet ===== */
+
+/* Form labels — field identifiers */
+.form-group label {
+    position: relative;
+    padding-bottom: 2px;
+}
+
+/* Thin rule under each form group */
+.form-group {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+}
+
+.form-group:last-of-type {
+    border-bottom: none;
+}
+
+/* Contact info — structured info block with dividers */
+.contact-info {
+    padding: 20px 0;
+    border-top: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--border-strong);
+}
+
+.contact-detail {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+}
+
+.contact-detail:last-child {
+    border-bottom: none;
+}
+
+
+/* ===== Footer — Engineering Document End ===== */
+
+/* Double-rule top border */
+.site-footer {
+    border-top: 2px solid var(--border-strong);
+    outline: 1px solid var(--border);
+    outline-offset: 3px;
+    padding-top: 32px;
+    position: relative;
+}
+
+/* Document termination annotation */
+.footer-copy::before {
+    content: 'SHEET 1 OF 1  ·  ';
+    font-size: 0.5625rem;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+/* Footer social link hover — engineering drawing style */
+.footer-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition: border-color var(--duration-fast) var(--ease-mechanical),
+                color var(--duration-fast) var(--ease-mechanical),
+                transform var(--duration-fast) var(--ease-mechanical);
+}
+
+.footer-links a:hover {
+    border-color: var(--accent-cyan);
+    transform: scale(1.08);
+}
+
+
+/* ===== Micro-Interactions ===== */
+
+/* Nav underline — draws from center */
+.nav-link::after {
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width var(--duration-base) var(--ease-mechanical);
+}
+
+/* Button hover depth */
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Button active state — press-in */
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: none;
+    transition-duration: 0.05s;
+}
+
+/* Card hover shadow expansion */
+.defender-card {
+    transition: box-shadow var(--duration-base) var(--ease-mechanical);
+}
+
+.defender-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.software-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Tag hover */
+.tag {
+    transition: border-color var(--duration-fast) var(--ease-mechanical),
+                color var(--duration-fast) var(--ease-mechanical);
+}
+
+.tag:hover {
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+/* Body text links — dotted to solid underline */
+.about-text a,
+.writing-content a,
+.contact-detail a {
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--duration-fast) var(--ease-mechanical),
+                color var(--duration-fast) var(--ease-mechanical);
+}
+
+.about-text a:hover,
+.writing-content a:hover {
+    text-decoration-style: solid;
+    color: var(--accent-cyan);
+}
+
+/* Scroll progress bar gradient */
+.nav-progress {
+    background: linear-gradient(90deg, var(--accent-warm), var(--accent-cyan));
+}
+
+/* Section reveal stagger — cards delay based on position */
+.defender-grid .reveal-ready:nth-child(2) { transition-delay: 0.08s; }
+.defender-grid .reveal-ready:nth-child(3) { transition-delay: 0.16s; }
+.defender-grid .reveal-ready:nth-child(4) { transition-delay: 0.24s; }
+.software-grid .reveal-ready:nth-child(2) { transition-delay: 0.08s; }
+.software-grid .reveal-ready:nth-child(3) { transition-delay: 0.16s; }
+
+/* Form input transitions */
+.form-group input,
+.form-group textarea {
+    transition: border-color var(--duration-fast) var(--ease-mechanical),
+                box-shadow var(--duration-fast) var(--ease-mechanical),
+                background-color var(--duration-fast) var(--ease-mechanical);
+}
+
+
+/* ===== Performance — Font Loading & Compositor Hints ===== */
+
+/* Font rendering optimization */
+.hero-heading,
+.section-title {
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU compositor layer hints for animated elements */
+.defender-card,
+.software-card {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.nav-progress {
+    will-change: width;
+}
+
+/* CSS containment for card containers — limits style recalculation */
+.defender-grid,
+.software-grid,
+.stats-grid {
+    contain: layout style;
+}
+
+/* Font loading FOUT management */
+.fonts-loading .hero-heading,
+.fonts-loading .section-title {
+    font-family: Georgia, serif;
+}
+
+.fonts-loading .form-group label,
+.fonts-loading .footer-copy,
+.fonts-loading .nav-logo-bold {
+    font-family: ui-monospace, 'Cascadia Code', monospace;
+}
+
+
+/* ===== Responsive: Very Small (<360px) ===== */
+@media (max-width: 359px) {
+    .hero-heading {
+        font-size: 1.5rem;
+        hyphens: auto;
+    }
+
+    .hero-sub {
+        font-size: 0.9375rem;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+    }
+
+    .hero-cta .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .stat-card {
+        padding: 16px 8px 12px;
+    }
+
+    .pill {
+        font-size: 0.625rem;
+        padding: 4px 8px;
+    }
+
+    .footer-copy::before {
+        display: none;
+    }
+}
+
+/* ===== Responsive: Tablet Portrait (600-767px) ===== */
+@media (min-width: 600px) and (max-width: 767px) {
+    .defender-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .software-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .hero-content {
+        max-width: 560px;
+    }
+
+    .section {
+        padding: 72px 0;
+    }
+
+    .container {
+        padding: 0 32px;
+    }
+}
+
+/* ===== Responsive: Tablet Landscape (768-1023px) ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .hero-content {
+        max-width: 640px;
+    }
+
+    .defender-grid {
+        gap: 20px;
+    }
+
+    .software-grid {
+        gap: 20px;
+    }
+
+    .section {
+        padding: 80px 0;
+    }
+}
+
+/* ===== Responsive: Small Desktop (1024-1199px) ===== */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+    }
+
+    .about-grid {
+        gap: 32px;
+    }
+
+    .defender-grid {
+        gap: 24px;
+    }
+}
+
+/* ===== Responsive: Short Landscape ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: 80px 0 40px;
+    }
+
+    .hero-heading {
+        font-size: clamp(var(--text-xl), 4vw, var(--text-2xl));
+        margin-bottom: 16px;
+    }
+
+    .hero-sub {
+        margin-bottom: 24px;
+    }
+
+    .hero::after {
+        display: none;
+    }
+
+    .section {
+        padding: 48px 0;
+    }
+}
+
+/* ===== Touch Device — Disable 3D Tilt ===== */
+@media (hover: none) and (pointer: coarse) {
+    .defender-card,
+    .software-card {
+        will-change: auto;
+        transform: none !important;
+    }
+}
+
+
+/* ===== Iteration 3 — Dark Mode Focus & Section Additions ===== */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .skip-link:focus {
+        outline-color: var(--accent-warm);
+    }
+
+    :root:not([data-theme="light"]) .btn:focus-visible {
+        outline-color: #D4A030;
+    }
+
+    :root:not([data-theme="light"]) .nav-link:focus-visible {
+        outline-color: #D4A030;
+    }
+
+    :root:not([data-theme="light"]) .form-group:focus-within {
+        background: rgba(43, 142, 157, 0.04);
+    }
+
+    :root:not([data-theme="light"]) .defender-card:hover,
+    :root:not([data-theme="light"]) .software-card:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.20);
+    }
+
+    :root:not([data-theme="light"]) .site-footer {
+        border-top-color: var(--border-strong);
+        outline-color: var(--border);
+    }
+
+    :root:not([data-theme="light"]) .contact-info {
+        border-top-color: var(--border-strong);
+        border-bottom-color: var(--border-strong);
+    }
+
+    :root:not([data-theme="light"]) .writing-coming {
+        border-left-color: var(--text-tertiary);
+    }
+}
+
+[data-theme="dark"] .skip-link:focus {
+    outline-color: var(--accent-warm);
+}
+
+[data-theme="dark"] .btn:focus-visible {
+    outline-color: #D4A030;
+}
+
+[data-theme="dark"] .nav-link:focus-visible {
+    outline-color: #D4A030;
+}
+
+[data-theme="dark"] .form-group:focus-within {
+    background: rgba(43, 142, 157, 0.04);
+}
+
+[data-theme="dark"] .defender-card:hover,
+[data-theme="dark"] .software-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.20);
+}
+
+[data-theme="dark"] .site-footer {
+    border-top-color: var(--border-strong);
+    outline-color: var(--border);
+}
+
+[data-theme="dark"] .contact-info {
+    border-top-color: var(--border-strong);
+    border-bottom-color: var(--border-strong);
+}
+
+[data-theme="dark"] .writing-coming {
+    border-left-color: var(--text-tertiary);
+}
+
+
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
     html {
@@ -1759,6 +2295,21 @@ a:hover {
 
     .hero-grid::after {
         display: none;
+    }
+
+    /* Iteration 3: disable stagger delays, button transforms */
+    .defender-grid .reveal-ready,
+    .software-grid .reveal-ready {
+        transition-delay: 0s !important;
+    }
+
+    .btn:hover,
+    .btn:active {
+        transform: none !important;
+    }
+
+    .footer-links a:hover {
+        transform: none !important;
     }
 }
 
@@ -1832,5 +2383,488 @@ a:hover {
     a[href^="http"]::after {
         content: " (" attr(href) ")";
         font-size: 0.75rem;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE ENHANCEMENT LAYER
+   World Cafe Table: Responsive Design Specialist
+
+   ADDITIVE ONLY — no overrides of existing 768px / <768px / 1024px breakpoints.
+   New intermediate breakpoints: 360px, 600px, 768-1023px, 1024-1199px.
+   Mobile-first (min-width) where possible.
+   ========================================================================== */
+
+
+/* ===== Very Small Viewport (< 360px) — Extreme Narrow Handling ===== */
+
+@media (max-width: 359px) {
+    /* Prevent horizontal overflow on the narrowest devices */
+    .container {
+        padding: 0 16px;
+    }
+
+    .nav-container {
+        padding: 0 16px;
+    }
+
+    .hero {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    /* Scale down hero heading to prevent line breaks that push content off-screen */
+    .hero-heading {
+        font-size: clamp(1.75rem, 8vw, var(--text-2xl));
+    }
+
+    .hero-sub {
+        font-size: var(--text-sm);
+    }
+
+    /* Stack CTA buttons vertically when viewport is this narrow */
+    .hero-cta {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero-cta .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+    }
+
+    /* Stat cards: tighter padding to prevent text overflow */
+    .stat-card {
+        padding: 16px 8px 12px;
+    }
+
+    .stat-number {
+        font-size: var(--text-lg);
+    }
+
+    .stat-detail {
+        font-size: 0.6875rem;
+    }
+
+    /* Defender cards: reduce body padding */
+    .defender-card-body {
+        padding: 16px;
+    }
+
+    .defender-card-img {
+        height: 120px;
+    }
+
+    /* Software cards: reduce padding */
+    .software-card {
+        padding: 20px;
+    }
+
+    /* Tags and pills: prevent overflow on narrow screens */
+    .tag-row {
+        gap: 4px;
+    }
+
+    .tag {
+        font-size: 0.625rem;
+        padding: 2px 6px;
+    }
+
+    .topic-pills {
+        gap: 6px;
+    }
+
+    .pill {
+        font-size: 0.6875rem;
+        padding: 5px 12px;
+    }
+
+    /* Contact form: tighter inputs */
+    .form-group input,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: var(--text-sm);
+    }
+
+    /* Writing blockquote: prevent overflow */
+    .writing-quote {
+        padding: 16px 20px;
+    }
+
+    .writing-quote p {
+        font-size: var(--text-base);
+    }
+
+    /* Section divider dimension lines: pull in from edges */
+    .section::before {
+        left: 16px;
+        right: 16px;
+    }
+
+    /* Footer: stack if needed */
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    /* Nav menu links: slightly tighter for narrow screens */
+    .nav-link {
+        padding: 12px 16px;
+    }
+}
+
+
+/* ===== Tablet Portrait (600px - 767px) ===== */
+
+@media (min-width: 600px) and (max-width: 767px) {
+    /* Two-column grids at tablet portrait width */
+    .defender-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .software-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    /* Stats as a horizontal row instead of stacked */
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    /* Hero text sizing for this intermediate range */
+    .hero-heading {
+        font-size: clamp(var(--text-xl), 5.5vw, var(--text-2xl));
+    }
+
+    .hero-content {
+        max-width: 560px;
+    }
+
+    /* Contact grid: side-by-side at tablet portrait */
+    .contact-grid {
+        grid-template-columns: 1.4fr 1fr;
+        align-items: start;
+    }
+
+    /* About grid: keep stacked but tighten gap */
+    .about-grid {
+        gap: 36px;
+    }
+
+    /* Section padding: slightly more room than mobile */
+    .section {
+        padding: 80px 0;
+    }
+
+    .section-subtitle {
+        margin-bottom: 36px;
+    }
+
+    /* Container padding intermediate step */
+    .container {
+        padding: 0 32px;
+    }
+
+    .nav-container {
+        padding: 0 32px;
+    }
+
+    /* Defender card image: slightly shorter at 2-col */
+    .defender-card-img {
+        height: 140px;
+    }
+
+    /* Section divider dimension lines: intermediate inset */
+    .section::before {
+        left: 32px;
+        right: 32px;
+    }
+
+    /* Show hero annotation at tablet portrait — repositioned */
+    .hero-annotation {
+        display: block;
+        bottom: 40px;
+        right: 32px;
+        min-width: 160px;
+        font-size: 0.625rem;
+    }
+
+    /* Hero title block outline: show but smaller */
+    .hero-grid::after {
+        display: block;
+        width: 160px;
+        height: 50px;
+        bottom: 32px;
+        right: 24px;
+    }
+}
+
+
+/* ===== Tablet Landscape (768px - 1023px) — Polish Layer ===== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* Refined section spacing for tablet landscape */
+    .section {
+        padding: 88px 0;
+    }
+
+    .section-subtitle {
+        margin-bottom: 40px;
+    }
+
+    /* Defender grid: 2-col with more breathing room */
+    .defender-grid {
+        gap: 24px;
+        margin-bottom: 36px;
+    }
+
+    /* Software grid: remain 2-col but with refined gap */
+    .software-grid {
+        gap: 24px;
+    }
+
+    /* Software cards: comfortable internal space */
+    .software-card {
+        padding: 28px;
+    }
+
+    /* Defender card images: proportional height for landscape */
+    .defender-card-img {
+        height: 150px;
+    }
+
+    /* About grid gap refinement */
+    .about-grid {
+        gap: 40px;
+    }
+
+    /* Stats: ensure 3-col stays comfortable */
+    .stats-grid {
+        gap: 14px;
+    }
+
+    .stat-card {
+        padding: 20px 10px 16px;
+    }
+
+    /* Contact grid: refined proportions */
+    .contact-grid {
+        gap: 40px;
+    }
+
+    /* Writing content: slightly wider at landscape */
+    .writing-content {
+        max-width: 560px;
+    }
+
+    /* Hero annotation: refine position at tablet landscape */
+    .hero-annotation {
+        bottom: 48px;
+        right: 36px;
+    }
+
+    /* Container: subtle increase from 768px default */
+    .container {
+        padding: 0 44px;
+    }
+
+    .nav-container {
+        padding: 0 44px;
+    }
+
+    /* Scroll rail: visible but pulled in slightly at this width */
+    .scroll-rail {
+        right: 14px;
+    }
+
+    /* Topic pills: ensure comfortable wrapping */
+    .topic-pills {
+        gap: 10px;
+    }
+
+    .pill {
+        padding: 6px 14px;
+    }
+}
+
+
+/* ===== Small Desktop (1024px - 1199px) — Container Transition ===== */
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+    /* Container max-width transition step before full 1100px */
+    .container {
+        max-width: 960px;
+        padding: 0 40px;
+    }
+
+    .nav-container {
+        max-width: 960px;
+    }
+
+    /* Grid gap refinements for 3-col software layout */
+    .software-grid {
+        gap: 20px;
+    }
+
+    /* Defender grid: still 2-col but with refined gaps */
+    .defender-grid {
+        gap: 22px;
+    }
+
+    /* Section spacing: approaching full desktop comfort */
+    .section {
+        padding: 92px 0;
+    }
+
+    /* Hero content: slightly narrower than full desktop */
+    .hero-content {
+        max-width: 660px;
+    }
+
+    /* About grid: slightly tighter ratio for small desktop */
+    .about-grid {
+        gap: 44px;
+    }
+
+    /* Stat cards: comfortable at this width */
+    .stats-grid {
+        gap: 16px;
+    }
+
+    /* Contact grid: approaching full desktop proportions */
+    .contact-grid {
+        gap: 44px;
+    }
+
+    /* Scroll rail: standard desktop position */
+    .scroll-rail {
+        right: 18px;
+    }
+}
+
+
+/* ===== Touch Device — Disable 3D Tilt ===== */
+/* Coarse pointer indicates touch-primary device (finger, not stylus) */
+
+@media (pointer: coarse) {
+    .defender-card,
+    .software-card {
+        --tilt-x: 0deg !important;
+        --tilt-y: 0deg !important;
+        --tilt-scale: 1 !important;
+        transform: none;
+        will-change: auto;
+    }
+
+    /* Remove hover-dependent dimension mark opacity changes on touch */
+    .defender-card:hover::before {
+        opacity: 0.4;
+    }
+
+    .defender-card:hover {
+        box-shadow: none;
+    }
+
+    .software-card:hover {
+        box-shadow: none;
+    }
+
+    /* Active states for touch — brief visual feedback on tap */
+    .defender-card:active {
+        border-color: var(--accent-warm);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .software-card:active {
+        border-color: var(--accent-cyan);
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* Disable hover expand on stat gauge rules for touch */
+    .stat-card:hover .stat-number::after {
+        width: 24px;
+    }
+
+    /* Side rail dots: larger tap targets on touch */
+    .scroll-rail__dot {
+        width: 12px;
+        height: 12px;
+        /* Ensure minimum 44px tap target via padding */
+        padding: 18px;
+        margin: -18px;
+        background-clip: content-box;
+    }
+}
+
+
+/* ===== Fine Pointer — Keep 3D Tilt (desktop mice/trackpads) ===== */
+
+@media (pointer: fine) {
+    .defender-card,
+    .software-card {
+        transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(var(--tilt-scale));
+        transform-style: preserve-3d;
+        will-change: transform;
+    }
+}
+
+
+/* ===== Hover Capability Detection ===== */
+/* Devices that cannot hover should not show hover-only visual effects */
+
+@media (hover: none) {
+    .nav-link::after {
+        display: none;
+    }
+
+    .pill:hover {
+        border-color: var(--border);
+        color: var(--text-secondary);
+    }
+
+    .software-card-icon::after {
+        width: 32px;
+    }
+
+    /* Active state replaces hover for touch feedback */
+    .pill:active {
+        border-color: var(--accent-warm);
+        color: var(--accent-warm);
+    }
+}
+
+
+/* ===== Landscape Orientation on Small Screens ===== */
+/* Handle phones rotated to landscape — short viewport, wide */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding-top: calc(var(--nav-height) + 32px);
+        padding-bottom: 40px;
+    }
+
+    .hero-heading {
+        font-size: clamp(var(--text-xl), 4vw, var(--text-2xl));
+        margin-bottom: 16px;
+    }
+
+    .hero-sub {
+        margin-bottom: 24px;
+    }
+
+    /* Hide the scroll-hint chevron in cramped landscape */
+    .hero::after {
+        display: none;
+    }
+
+    /* Reduce section padding in short landscape */
+    .section {
+        padding: 48px 0;
     }
 }
