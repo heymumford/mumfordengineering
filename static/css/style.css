@@ -2915,6 +2915,79 @@ body {
 }
 
 
+/* ==========================================================================
+   ITERATION 12 — CSS Performance & Final Polish
+   ========================================================================== */
+
+
+/* ===== Critical Rendering Path ===== */
+
+/* Above-the-fold elements: explicit containment to prevent layout shift */
+.hero {
+    contain: layout;
+}
+
+.site-header {
+    contain: layout style;
+}
+
+/* Footer social icons: prevent CLS with explicit dimensions */
+.footer-links a svg {
+    width: 18px;
+    height: 18px;
+}
+
+
+/* ===== Form Polish ===== */
+
+/* Label color transition on focus */
+.form-group:focus-within label {
+    color: var(--accent-cyan);
+}
+
+/* Textarea: minimum usable height */
+.form-group textarea {
+    min-height: 120px;
+}
+
+/* Submit button: wider hit target */
+.btn-submit {
+    min-width: 180px;
+    justify-content: center;
+}
+
+
+/* ===== Link Underline Refinements ===== */
+
+/* Software card: whole card is a link — underline only on software-link text */
+.software-card {
+    text-decoration: none;
+}
+
+.software-card:hover {
+    text-decoration: none;
+}
+
+.software-card:hover .software-link {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+}
+
+
+/* ===== Selection Refinements ===== */
+
+/* Code/mono text: cyan selection instead of amber */
+.nav-logo::selection,
+.section-ref::selection,
+.footer-copy::selection,
+.badge::selection,
+.tag::selection,
+.stat-number::selection {
+    background: rgba(26, 107, 122, 0.25);
+}
+
+
 /* ===== Reduced Motion — Iteration 10 ===== */
 @media (prefers-reduced-motion: reduce) {
     .writing-coming::after {
