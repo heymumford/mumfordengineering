@@ -69,7 +69,12 @@ async def reject_null_bytes(request: Request, call_next):
 
 @app.middleware("http")
 async def limit_body_size(request: Request, call_next):
-    """Reject requests with declared body larger than 1 MB."""
+    """Reject requests with declared body larger than 1 MB.
+
+    Checks Content-Length header for early rejection. Chunked transfers
+    without Content-Length are bounded by Fly.io's proxy (1 MB default)
+    and by FastAPI's Form() max_length on individual fields.
+    """
     content_length = request.headers.get("content-length")
     if content_length:
         try:
@@ -119,13 +124,15 @@ def _get_client_ip(request: Request) -> str:
     """Extract real client IP from Fly.io proxy headers.
 
     Only trusts fly-client-ip (set by Fly.io proxy, not spoofable from
-    outside the proxy). Falls back to the TCP peer address — does NOT
-    trust x-forwarded-for from arbitrary clients.
+    outside the proxy). Does not rely on request.client, which may be
+    derived from proxy headers such as X-Forwarded-For.
     """
     ip = request.headers.get("fly-client-ip")
     if ip:
         return ip.strip()
-    return request.client.host if request.client else "unknown"
+    # When fly-client-ip is absent, avoid trusting request.client because
+    # some ASGI servers/middleware may populate it from spoofable headers.
+    return "unknown"
 
 
 def _is_rate_limited(ip: str) -> bool:

@@ -463,20 +463,19 @@ class TestDep07ForwardedAllowIps:
         text = DOCKERFILE.read_text()
         assert "--proxy-headers" in text
 
-    def test_dockerfile_cmd_uses_wildcard_forwarded_allow_ips(self):
+    def test_dockerfile_cmd_uses_env_var_for_forwarded_allow_ips(self):
         """
-        Documents that --forwarded-allow-ips * is set.
-        This is a MEDIUM risk: any upstream can inject trusted proxy headers.
-        If this test fails (wildcard removed), update to verify a restricted value.
+        --forwarded-allow-ips must reference an environment variable, not a
+        hardcoded wildcard. The env var is set in fly.toml for Fly.io and
+        defaults to empty (no trusted proxies) outside Fly.io.
         """
         text = DOCKERFILE.read_text()
         assert "--forwarded-allow-ips" in text, (
             "--forwarded-allow-ips flag is absent; verify proxy header trust is configured."
         )
-        # Document current wildcard posture
-        assert '"*"' in text or "'*'" in text or "* " in text or text.endswith("*"), (
-            "--forwarded-allow-ips is set to something other than *. "
-            "Update this test to verify the restricted value is correct."
+        assert "FORWARDED_ALLOW_IPS" in text, (
+            "--forwarded-allow-ips should reference $FORWARDED_ALLOW_IPS env var, "
+            "not a hardcoded value. Set the env var in fly.toml or deployment config."
         )
 
     def test_app_reads_fly_client_ip_before_x_forwarded_for(self):

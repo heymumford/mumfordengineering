@@ -231,37 +231,26 @@ def test_uv_installed_with_version_pin():
 # ---------------------------------------------------------------------------
 
 
-def test_forwarded_allow_ips_not_wildcard():
+def test_forwarded_allow_ips_not_hardcoded_wildcard():
     """
-    HIGH-2: --forwarded-allow-ips "*" trusts ALL sources to inject proxy headers.
-    On Fly.io this is partially mitigated by network topology, but baking a wildcard
-    into the image makes it unsafe in any other execution context (local dev, staging,
-    alternative cloud).
-
-    Fix: Use a specific CIDR (e.g. "10.0.0.0/8" for Fly.io private network) or inject
-    the value via an environment variable at deploy time so it is environment-specific.
-
-    Detection: In JSON-array CMD form, --forwarded-allow-ips and its value are separate
-    tokens: ["--forwarded-allow-ips", "*"]. We normalise the line and check for the
-    wildcard token following the flag.
+    HIGH-2: --forwarded-allow-ips must not have a hardcoded wildcard baked into the
+    image. The value should come from an environment variable so it is
+    environment-specific (Fly.io can set "*", local dev defaults to empty).
     """
     cmd_lines = [ln for ln in dockerfile_lines() if "forwarded-allow-ips" in ln]
     assert cmd_lines, "No --forwarded-allow-ips found in Dockerfile CMD — verify argument is present"
     for line in cmd_lines:
-        # Handles both: `--forwarded-allow-ips *` and `"--forwarded-allow-ips", "*"`
+        # The value should reference an env var (e.g. ${FORWARDED_ALLOW_IPS:-})
+        # and NOT contain a literal "*" wildcard
         normalised = line.replace('"', " ").replace(",", " ")
-        idx = normalised.find("--forwarded-allow-ips")
-        if idx != -1:
-            after = normalised[idx + len("--forwarded-allow-ips") :].strip()
-            value = after.split()[0].strip() if after.split() else ""
-            # Wildcard is accepted for Fly.io deployments (platform controls the
-            # proxy layer and fly-client-ip header). App trusts only fly-client-ip,
-            # not x-forwarded-for, so wildcard forwarded-allow-ips is mitigated.
-            if value == "*":
-                pytest.skip(
-                    "Wildcard --forwarded-allow-ips accepted for Fly.io deployment "
-                    "(mitigated: app trusts only fly-client-ip)"
-                )
+        # Check that the wildcard is not hardcoded (env var reference is fine)
+        has_env_ref = "FORWARDED_ALLOW_IPS" in line
+        has_literal_wildcard = re.search(r'--forwarded-allow-ips\s+["\']?\*["\']?', normalised)
+        if has_literal_wildcard and not has_env_ref:
+            pytest.fail(
+                "[HIGH-2] --forwarded-allow-ips has hardcoded wildcard '*' in Dockerfile.\n"
+                'Fix: use env var: --forwarded-allow-ips "${FORWARDED_ALLOW_IPS:-}"'
+            )
 
 
 # ---------------------------------------------------------------------------

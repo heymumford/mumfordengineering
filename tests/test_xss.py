@@ -66,10 +66,12 @@ async def test_contact_response_does_not_reflect_email(client):
     xss_email = "xss@example.com<script>alert(1)</script>"
     resp = await client.post(
         "/contact",
-        data={"name": "Test", "email": "test@example.com", "message": "Hello", "website": ""},
+        data={"name": "Test", "email": xss_email, "message": "Hello", "website": ""},
     )
-    assert resp.status_code == 200
+    # Email fails validation (contains <script>), so expect 422
+    assert resp.status_code == 422
     assert xss_email not in resp.text
+    assert "<script>" not in resp.text
 
 
 @pytest.mark.asyncio

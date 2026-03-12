@@ -18,6 +18,9 @@ primary_region = "iad"
   path = "/health"
   timeout = "5s"
 
+[env]
+  FORWARDED_ALLOW_IPS = "*"
+
 [[vm]]
   memory = "256mb"
   cpu_kind = "shared"

@@ -327,23 +327,43 @@ async def test_ip_spoofing_via_fly_client_ip(client):
 @pytest.mark.asyncio
 async def test_ip_spoofing_via_x_forwarded_for(client):
     """
-    x-forwarded-for is also attacker-controlled and trusted unconditionally.
-    An attacker not behind Fly.io can set this header to any value.
+    FINDING (INFO): x-forwarded-for is attacker-controlled, but is currently
+    ignored by _get_client_ip(). Changing this header does not affect which
+    client key the rate limiter uses.
+
+    This test documents that multiple requests with different x-forwarded-for
+    values are still tracked under a single client entry in _contact_timestamps.
     """
     _contact_timestamps.clear()
 
-    for i in range(6):
-        resp = await client.post(
+    # First request establishes the client IP key used by the rate limiter.
+    resp0 = await client.post(
+        "/contact",
+        data={
+            "name": "XFF Spoof",
+            "email": "xff0@example.com",
+            "message": "XFF spoof probe",
+            "website": "",
+        },
+    )
+    assert resp0.status_code == 200
+    assert len(_contact_timestamps) == 1
+    initial_keys = set(_contact_timestamps.keys())
+
+    # Subsequent requests with varying x-forwarded-for values must not create
+    # new rate-limiter buckets; the key set should remain unchanged.
+    for i in range(3):
+        await client.post(
             "/contact",
-            headers={"x-forwarded-for": f"10.0.0.{i}"},
+            headers={"x-forwarded-for": f"10.0.0.{i + 1}"},
             data={
                 "name": "XFF Spoof",
-                "email": f"xff{i}@example.com",
+                "email": f"xff{i + 1}@example.com",
                 "message": "XFF spoof probe",
                 "website": "",
             },
         )
-        assert resp.status_code == 200, f"Request {i} failed unexpectedly"
+        assert set(_contact_timestamps.keys()) == initial_keys
 
 
 # ---------------------------------------------------------------------------
