@@ -2028,140 +2028,7 @@ body {
 }
 
 
-/* ===== Responsive: Very Small (<360px) ===== */
-@media (max-width: 359px) {
-    .hero-heading {
-        font-size: 1.5rem;
-        hyphens: auto;
-    }
-
-    .hero-sub {
-        font-size: 0.9375rem;
-    }
-
-    .hero-cta {
-        flex-direction: column;
-    }
-
-    .hero-cta .btn {
-        width: 100%;
-        text-align: center;
-        justify-content: center;
-    }
-
-    .stat-card {
-        padding: 16px 8px 12px;
-    }
-
-    .pill {
-        font-size: 0.625rem;
-        padding: 4px 8px;
-    }
-
-    .footer-copy::before {
-        display: none;
-    }
-}
-
-/* ===== Responsive: Tablet Portrait (600-767px) ===== */
-@media (min-width: 600px) and (max-width: 767px) {
-    .defender-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .software-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-
-    .hero-content {
-        max-width: 560px;
-    }
-
-    .section {
-        padding: 72px 0;
-    }
-
-    .container {
-        padding: 0 32px;
-    }
-}
-
-/* ===== Responsive: Tablet Landscape (768-1023px) ===== */
-@media (min-width: 768px) and (max-width: 1023px) {
-    .hero-content {
-        max-width: 640px;
-    }
-
-    .defender-grid {
-        gap: 20px;
-    }
-
-    .software-grid {
-        gap: 20px;
-    }
-
-    .section {
-        padding: 80px 0;
-    }
-}
-
-/* ===== Responsive: Small Desktop (1024-1199px) ===== */
-@media (min-width: 1024px) and (max-width: 1199px) {
-    .container {
-        max-width: 960px;
-    }
-
-    .about-grid {
-        gap: 32px;
-    }
-
-    .defender-grid {
-        gap: 24px;
-    }
-}
-
-/* ===== Responsive: Short Landscape ===== */
-@media (max-height: 500px) and (orientation: landscape) {
-    .hero {
-        min-height: auto;
-        padding: 80px 0 40px;
-    }
-
-    .hero-heading {
-        font-size: clamp(var(--text-xl), 4vw, var(--text-2xl));
-        margin-bottom: 16px;
-    }
-
-    .hero-sub {
-        margin-bottom: 24px;
-    }
-
-    .hero::after {
-        display: none;
-    }
-
-    .section {
-        padding: 48px 0;
-    }
-}
-
-/* ===== Touch Device — Disable 3D Tilt ===== */
-@media (hover: none) and (pointer: coarse) {
-    .defender-card,
-    .software-card {
-        will-change: auto;
-        transform: none !important;
-    }
-}
+/* Responsive breakpoints consolidated in RESPONSIVE ENHANCEMENT LAYER below print block */
 
 
 /* ===== Iteration 3 — Dark Mode Focus & Section Additions ===== */
@@ -2235,6 +2102,123 @@ body {
 
 [data-theme="dark"] .writing-coming {
     border-left-color: var(--text-tertiary);
+}
+
+
+/* ==========================================================================
+   ITERATION 5 — Refinement & Polish Pass
+   Content-visibility, fold marks, SVG enhancements, print updates
+   ========================================================================== */
+
+
+/* ===== Content-Visibility — Below-Fold Rendering Optimization ===== */
+/* Defer rendering cost for sections below initial viewport */
+#defender,
+#software,
+#writing,
+#contact {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+}
+
+.site-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 80px;
+}
+
+
+/* ===== Engineering Fold Marks ===== */
+/* Small tick marks at section boundaries — like fold marks on engineering prints */
+.section-alt::before {
+    /* Dimension line at center, fold mark tick at 25% horizontal */
+    background-image:
+        linear-gradient(to bottom,
+            transparent 0, transparent 4px,
+            var(--rule) 4px, var(--rule) 5px,
+            transparent 5px),
+        linear-gradient(to bottom,
+            var(--rule) 0, var(--rule) 3px,
+            transparent 3px);
+    background-position: center top, 25% top;
+    background-size: 100% 100%, 1px 3px;
+    background-repeat: no-repeat, no-repeat;
+}
+
+
+/* ===== SVG Icon Enhancements ===== */
+/* Defender card SVG icons — subtle stroke animation on hover */
+.defender-card-img svg {
+    transition: stroke var(--duration-base) var(--ease-mechanical),
+                transform var(--duration-base) var(--ease-mechanical);
+    stroke: var(--text-secondary);
+}
+
+.defender-card:hover .defender-card-img svg {
+    stroke: var(--accent-green);
+    transform: scale(1.05);
+}
+
+/* Software card SVG icons — blueprint line drawing effect */
+.software-card-icon svg {
+    transition: stroke var(--duration-base) var(--ease-mechanical),
+                transform var(--duration-base) var(--ease-mechanical);
+    stroke: var(--text-secondary);
+}
+
+.software-card:hover .software-card-icon svg {
+    stroke: var(--accent-cyan);
+    transform: scale(1.05);
+}
+
+/* Contact detail SVG icons — amber accent shift */
+.contact-detail:hover svg {
+    stroke: var(--accent-cyan);
+    transition: stroke var(--duration-fast) var(--ease-mechanical);
+}
+
+/* Footer social SVG icons — engineering hover */
+.footer-links a svg {
+    transition: stroke var(--duration-fast) var(--ease-mechanical);
+}
+
+.footer-links a:hover svg {
+    stroke: var(--accent-cyan);
+}
+
+
+/* ===== Dark Mode — Iteration 5 ===== */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .defender-card-img svg {
+        stroke: var(--text-tertiary);
+    }
+
+    :root:not([data-theme="light"]) .defender-card:hover .defender-card-img svg {
+        stroke: var(--accent-green);
+    }
+
+    :root:not([data-theme="light"]) .software-card-icon svg {
+        stroke: var(--text-tertiary);
+    }
+
+    :root:not([data-theme="light"]) .software-card:hover .software-card-icon svg {
+        stroke: var(--accent-cyan);
+    }
+}
+
+[data-theme="dark"] .defender-card-img svg {
+    stroke: var(--text-tertiary);
+}
+
+[data-theme="dark"] .defender-card:hover .defender-card-img svg {
+    stroke: var(--accent-green);
+}
+
+[data-theme="dark"] .software-card-icon svg {
+    stroke: var(--text-tertiary);
+}
+
+[data-theme="dark"] .software-card:hover .software-card-icon svg {
+    stroke: var(--accent-cyan);
 }
 
 
@@ -2386,6 +2370,47 @@ body {
     a[href^="http"]::after {
         content: " (" attr(href) ")";
         font-size: 0.75rem;
+    }
+
+    /* Iteration 5: print additions for new annotations */
+    .site-footer::before {
+        color: #888;
+        background: #fff;
+    }
+
+    .footer-copy::before {
+        opacity: 0.5;
+    }
+
+    .contact-form::before,
+    .contact-form::after,
+    .contact-info::before,
+    .contact-info::after,
+    .contact-detail::before {
+        display: none;
+    }
+
+    .writing-coming::after {
+        display: none;
+    }
+
+    .writing-quote::before,
+    .writing-quote::after {
+        display: none;
+    }
+
+    .pill::before,
+    .pill::after {
+        display: none;
+    }
+
+    /* Content-visibility must be disabled for print */
+    #defender,
+    #software,
+    #writing,
+    #contact,
+    .site-footer {
+        content-visibility: visible;
     }
 }
 
