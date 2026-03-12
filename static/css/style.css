@@ -3077,14 +3077,14 @@ body {
 
 /* Defender note: italic with leading dash */
 .defender-note {
-    padding-left: 16px;
+    padding-inline-start: 16px;
     position: relative;
 }
 
 .defender-note::before {
     content: '—';
     position: absolute;
-    left: 0;
+    inset-inline-start: 0;
     color: var(--text-tertiary);
 }
 
