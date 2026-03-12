@@ -3318,16 +3318,13 @@ body {
 
 /* Complete the RTL-safe conversion for remaining inline-direction props */
 .hero-annotation {
-    inset-inline-end: 24px;
-}
-
-.scroll-rail {
-    inset-inline-end: 20px;
+    inset-inline-end: 40px;
 }
 
 .writing-quote {
-    border-inline-start-width: 3px;
+    border-inline-start-width: 2px;
     border-inline-start-style: solid;
+    border-inline-start-color: var(--accent-warm);
     padding-inline-start: 24px;
 }
 
@@ -3503,11 +3500,11 @@ body {
 :root {
     --z-base: 0;
     --z-card-overlay: 1;        /* card pseudo-elements, badges */
-    --z-section-indicator: 5;   /* floating section indicator */
-    --z-scroll-rail: 10;        /* side scroll rail */
+    --z-scroll-rail: 50;        /* side scroll rail */
+    --z-section-indicator: 99;  /* floating section indicator */
     --z-header: 100;            /* sticky header */
     --z-nav-menu: 200;          /* mobile nav overlay */
-    --z-skip-link: 999;         /* skip-to-content link */
+    --z-skip-link: 1000;        /* skip-to-content link */
 }
 
 /* Apply documented z-index values — replace magic numbers */
@@ -3538,7 +3535,6 @@ body {
 /* Prevent any content from breaking the viewport — safety net */
 .container {
     overflow-wrap: break-word;
-    word-break: break-word;
 }
 
 /* Long URLs or code snippets in cards */
@@ -3567,23 +3563,6 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-
-/* ===== Final Touch: System Font Metrics ===== */
-
-/* Adjust fallback font size to minimize FOUT reflow.
-   Georgia (serif fallback) is ~8% wider than Source Serif 4.
-   size-adjust corrects this. */
-@supports (size-adjust: 100%) {
-    @font-face {
-        font-family: 'Source Serif 4 Fallback';
-        src: local('Georgia');
-        size-adjust: 92%;
-        ascent-override: 95%;
-        descent-override: 22%;
-        line-gap-override: 0%;
-    }
 }
 
 
