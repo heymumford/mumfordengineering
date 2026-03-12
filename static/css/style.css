@@ -2275,43 +2275,46 @@ body {
 
 
 /* ===== Hero Annotation — Title Block (structured markup) ===== */
-/* Styles already exist from Iteration 2 for .annotation-north,
-   .annotation-label, .annotation-dwg, .annotation-divider.
-   Add refinements for the structured content. */
 
-.hero-annotation span:not(.annotation-north):not(.annotation-label):not(.annotation-dwg) {
+.hero-annotation .annotation-north {
+    position: absolute;
+    top: -32px;
+    right: 11px;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--text-tertiary);
+    opacity: 0.5;
+}
+
+.hero-annotation .annotation-label {
+    font-size: 0.5625rem;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    opacity: 0.4;
+}
+
+.hero-annotation .annotation-dwg {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.10em;
+    color: var(--text-tertiary);
+}
+
+.hero-annotation .annotation-divider {
+    grid-column: 1 / -1;
+    height: 1px;
+    background: var(--text-tertiary);
+    opacity: 0.25;
+    margin: 4px 0;
+}
+
+.hero-annotation .annotation-value {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--text-tertiary);
     letter-spacing: 0.02em;
-}
-
-
-/* ===== Dark Mode — Iteration 6 ===== */
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .writing-cite {
-        color: var(--text-tertiary);
-    }
-
-    :root:not([data-theme="light"]) .badge-available::before {
-        background: var(--accent-green);
-    }
-
-    :root:not([data-theme="light"]) .badge-dev::before {
-        background: var(--accent-warm);
-    }
-}
-
-[data-theme="dark"] .writing-cite {
-    color: var(--text-tertiary);
-}
-
-[data-theme="dark"] .badge-available::before {
-    background: var(--accent-green);
-}
-
-[data-theme="dark"] .badge-dev::before {
-    background: var(--accent-warm);
 }
 
 
