@@ -2837,6 +2837,84 @@ body {
 /* Dark mode: hero/about gradients use CSS vars, no overrides needed */
 
 
+/* ==========================================================================
+   ITERATION 11 — Wide Screen Polish & Container Behavior
+   ========================================================================== */
+
+
+/* ===== Wide Desktop (1200px+) ===== */
+@media (min-width: 1200px) {
+    .container,
+    .nav-container {
+        max-width: var(--container-max);
+        padding: 0 48px;
+    }
+
+    /* Defender grid: 2-col with generous gaps */
+    .defender-grid {
+        gap: 28px;
+    }
+
+    /* Software grid: 3-col, comfortable breathing room */
+    .software-grid {
+        gap: 24px;
+    }
+
+    /* About grid: wider text column ratio */
+    .about-grid {
+        grid-template-columns: 1.8fr 1fr;
+        gap: 56px;
+    }
+
+    /* Contact grid: wider form ratio */
+    .contact-grid {
+        grid-template-columns: 1.6fr 1fr;
+        gap: 56px;
+    }
+
+    /* Section padding: full desktop comfort */
+    .section {
+        padding: 112px 0;
+    }
+
+    /* Hero: constrained content width for readability */
+    .hero-content {
+        max-width: 740px;
+    }
+
+    /* Footer: generous padding */
+    .site-footer {
+        padding-top: 36px;
+    }
+}
+
+
+/* ===== Ultra-Wide (1400px+) ===== */
+@media (min-width: 1400px) {
+    /* Center content more dramatically on very wide screens */
+    .hero {
+        padding-left: calc((100vw - var(--container-max)) / 2);
+        padding-right: calc((100vw - var(--container-max)) / 2);
+    }
+
+    /* Scroll rail: push further from edge */
+    .scroll-rail {
+        right: calc((100vw - var(--container-max)) / 2 - 40px);
+    }
+
+    /* Hero annotation: position relative to content container */
+    .hero-annotation {
+        right: calc((100vw - var(--container-max)) / 2 + 24px);
+    }
+
+    /* Section divider: respect container width */
+    .section::before {
+        left: calc((100vw - var(--container-max)) / 2);
+        right: calc((100vw - var(--container-max)) / 2);
+    }
+}
+
+
 /* ===== Reduced Motion — Iteration 10 ===== */
 @media (prefers-reduced-motion: reduce) {
     .writing-coming::after {
