@@ -2908,7 +2908,219 @@ body {
     .site-footer {
         content-visibility: visible;
     }
+
+    /* Page break control — keep cards together, sections on fresh pages */
+    .section {
+        page-break-before: auto;
+        break-before: auto;
+    }
+
+    .defender-card,
+    .software-card,
+    .stat-card {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    /* Orphan/widow control — prevent lonely lines */
+    p {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2, h3 {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    /* Grids flatten to single column for print readability */
+    .defender-grid,
+    .software-grid,
+    .stats-grid,
+    .about-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Hero: compact for print — no full-viewport height */
+    .hero {
+        min-height: auto;
+        padding: 32px 0;
+    }
+
+    /* Section refs — lighter on print */
+    .section-ref {
+        color: #888;
+    }
+
+    .section-ref::before {
+        display: none;
+    }
+
+    /* Badges: text-only, no dots */
+    .badge::before {
+        display: none;
+    }
+
+    /* Footer revision: visible in print */
+    .footer-rev {
+        opacity: 0.8;
+    }
+
+    /* Crosshair marks: hide in print */
+    .footer-links a::before,
+    .footer-links a::after {
+        display: none;
+    }
+
+    /* Nav section numbers: hide */
+    .nav-link[data-section]::before {
+        display: none;
+    }
+
+    /* Iteration 7 gradient bleed: flatten for print */
+    .section-alt {
+        background: #f5f5f5 !important;
+    }
 }
+
+
+/* ==========================================================================
+   ITERATION 9 — Accessibility Depth & Forced Colors
+   ========================================================================== */
+
+
+/* ===== Forced Colors / Windows High Contrast ===== */
+@media (forced-colors: active) {
+    /* Ensure borders are visible in high contrast mode */
+    .defender-card,
+    .software-card,
+    .stat-card {
+        border: 2px solid ButtonText;
+        forced-color-adjust: none;
+    }
+
+    .defender-card {
+        border-top-color: Highlight;
+    }
+
+    .software-card {
+        border-top-color: Highlight;
+    }
+
+    /* Buttons: visible boundaries */
+    .btn {
+        border: 2px solid ButtonText;
+        background: ButtonFace;
+        color: ButtonText;
+    }
+
+    .btn-primary {
+        background: Highlight;
+        color: HighlightText;
+        border-color: Highlight;
+    }
+
+    /* Form inputs: clear boundaries */
+    .form-group input,
+    .form-group textarea {
+        border: 2px solid ButtonText;
+        background: Field;
+        color: FieldText;
+    }
+
+    /* Focus rings: system highlight color */
+    :focus-visible {
+        outline: 3px solid Highlight;
+        outline-offset: 2px;
+    }
+
+    /* Links: system link color */
+    a {
+        color: LinkText;
+    }
+
+    /* Nav link active: highlight indicator */
+    .nav-link.active {
+        border-bottom: 2px solid Highlight;
+    }
+
+    /* Badges: text contrast only */
+    .badge {
+        border: 1px solid ButtonText;
+    }
+
+    .badge::before {
+        display: none;
+    }
+
+    /* Hide decorative elements */
+    .hero-grid,
+    .hero-grid::after,
+    .hero-annotation,
+    .section::before,
+    .hero::after,
+    .scroll-rail,
+    .section-alt::after,
+    #about::after,
+    .defender-card::before,
+    .defender-card-img::before,
+    .stat-card::before,
+    .stat-number::after,
+    .writing-quote::after,
+    .section-ref::before,
+    .footer-links a::before,
+    .footer-links a::after {
+        display: none !important;
+    }
+
+    /* Section-alt: use system background */
+    .section-alt {
+        background: Canvas;
+    }
+
+    /* Dimension-line dividers: visible */
+    .section::before {
+        display: none;
+    }
+}
+
+
+/* ===== Accessibility — Screen Reader Enhancements ===== */
+
+/* Visually hidden but accessible — for sr-only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus trap indicator — visible outline on the nav when tabbing through */
+.nav-container:focus-within {
+    outline: 1px dashed var(--accent-cyan);
+    outline-offset: -1px;
+    border-radius: var(--radius);
+}
+
+/* Form validation states — visible without color alone */
+.form-group input:invalid:not(:placeholder-shown),
+.form-group textarea:invalid:not(:placeholder-shown) {
+    border-color: #C53030;
+    border-left-width: 3px;
+}
+
+/* Ensure links are distinguishable from surrounding text */
+.about-text a,
+.writing-content a {
+    text-decoration-thickness: 1px;
+}
+
 
 /* ==========================================================================
    RESPONSIVE ENHANCEMENT LAYER
