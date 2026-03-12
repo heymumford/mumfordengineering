@@ -2130,7 +2130,7 @@ body {
 /* ===== Engineering Fold Marks ===== */
 /* Small tick marks at section boundaries — like fold marks on engineering prints */
 .section-alt::before {
-    /* Fold mark ticks at 25% and 75% horizontal position */
+    /* Dimension line at center, fold mark tick at 25% horizontal */
     background-image:
         linear-gradient(to bottom,
             transparent 0, transparent 4px,
