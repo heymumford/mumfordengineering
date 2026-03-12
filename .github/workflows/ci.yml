@@ -8,7 +8,7 @@ on:
 
 jobs:
   lint-test:
-    runs-on: [self-hosted, ARM64]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -27,7 +27,7 @@ jobs:
         run: uv run pytest tests/ -q --cache-clear
 
   build:
-    runs-on: [self-hosted, ARM64]
+    runs-on: ubuntu-latest
     needs: lint-test
     steps:
       - uses: actions/checkout@v4
