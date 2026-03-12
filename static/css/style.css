@@ -2586,6 +2586,131 @@ body {
 }
 
 
+/* ==========================================================================
+   ITERATION 8 — Card Refinement, Footer Signature, Nav Polish
+   ========================================================================== */
+
+
+/* ===== Card Interior Refinement ===== */
+
+/* Defender card — data plate label above card content */
+.defender-card-body {
+    position: relative;
+}
+
+/* Specification text hierarchy — description smaller than title */
+.defender-card-body p {
+    font-size: 0.8125rem;
+    line-height: 1.7;
+}
+
+/* Card hover — border top accent intensifies */
+.defender-card:hover {
+    border-top-color: var(--accent-green);
+}
+
+.software-card:hover {
+    border-top-color: var(--accent-cyan);
+}
+
+/* Tag — active/pressed state for interactivity feel */
+.tag:active {
+    background: rgba(26, 107, 122, 0.04);
+}
+
+/* Software link arrow — slides right on hover */
+.software-link svg {
+    transition: transform var(--duration-fast) var(--ease-mechanical);
+}
+
+.software-card:hover .software-link svg {
+    transform: translateX(3px);
+}
+
+/* Stat card — subtle amber top accent on hover */
+.stat-card:hover {
+    border-top: 2px solid var(--accent-warm);
+    padding-top: 19px; /* compensate: 2px border + 19px = 1px border + 20px */
+}
+
+
+/* ===== Footer — Engineering Document Closing ===== */
+
+/* Revision info — styled via .footer-rev span in HTML */
+.footer-rev {
+    font-size: 0.5625rem;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+/* Footer links — engineering drawing crosshair markers */
+.footer-links {
+    gap: 16px;
+}
+
+.footer-links a {
+    position: relative;
+}
+
+/* Crosshair marks on footer icon hover */
+.footer-links a::before,
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    background: var(--accent-cyan);
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-mechanical);
+}
+
+.footer-links a::before {
+    width: 1px;
+    height: 6px;
+    top: -4px;
+    left: 50%;
+}
+
+.footer-links a::after {
+    width: 6px;
+    height: 1px;
+    left: -4px;
+    top: 50%;
+}
+
+.footer-links a:hover::before,
+.footer-links a:hover::after {
+    opacity: 0.4;
+}
+
+
+/* ===== Nav Polish ===== */
+
+/* Section number display on nav links via data-section attribute */
+.nav-link[data-section]::before {
+    content: attr(data-section) '.';
+    font-size: 0.5625rem;
+    font-weight: 400;
+    color: var(--text-tertiary);
+    margin-right: 4px;
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-mechanical);
+}
+
+/* Show section number on hover and active state */
+.nav-link:hover::before,
+.nav-link.active::before {
+    opacity: 0.6;
+}
+
+/* Active nav link — stronger visual weight */
+.nav-link.active {
+    font-weight: 600;
+}
+
+
+/* Dark mode: stat/footer use CSS vars, no overrides needed */
+
+
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
     .badge-dev::before {
@@ -2663,6 +2788,10 @@ body {
     }
 
     .footer-links a:hover {
+        transform: none !important;
+    }
+
+    .software-card:hover .software-link svg {
         transform: none !important;
     }
 }
