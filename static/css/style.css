@@ -2834,43 +2834,7 @@ body {
 /* About, Writing, Contact keep warm amber (default) */
 
 
-/* ===== Dark Mode — Iteration 10 ===== */
-
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .hero {
-        background: linear-gradient(
-            to bottom,
-            var(--bg-primary) 0%,
-            var(--bg-primary) 85%,
-            var(--bg-secondary) 100%
-        );
-    }
-
-    :root:not([data-theme="light"]) #about {
-        background: linear-gradient(
-            to bottom,
-            var(--bg-secondary) 0px,
-            var(--bg-primary) 80px
-        );
-    }
-}
-
-[data-theme="dark"] .hero {
-    background: linear-gradient(
-        to bottom,
-        var(--bg-primary) 0%,
-        var(--bg-primary) 85%,
-        var(--bg-secondary) 100%
-    );
-}
-
-[data-theme="dark"] #about {
-    background: linear-gradient(
-        to bottom,
-        var(--bg-secondary) 0px,
-        var(--bg-primary) 80px
-    );
-}
+/* Dark mode: hero/about gradients use CSS vars, no overrides needed */
 
 
 /* ===== Reduced Motion — Iteration 10 ===== */
