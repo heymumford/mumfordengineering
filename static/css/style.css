@@ -605,6 +605,13 @@ a:hover {
     line-height: 1.6;
 }
 
+/* ===== Honeypot ===== */
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+}
+
 /* ===== Contact ===== */
 .contact-grid {
     display: grid;

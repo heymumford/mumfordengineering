@@ -102,10 +102,16 @@
                 body: data,
             })
                 .then(function (resp) {
+                    if (!resp.ok && resp.status !== 422) {
+                        throw new Error("Server error");
+                    }
                     return resp.json();
                 })
                 .then(function (json) {
-                    if (json.message) {
+                    if (json.status === "error") {
+                        formStatus.textContent = json.message || "Please check your input.";
+                        formStatus.className = "error";
+                    } else if (json.message) {
                         formStatus.textContent = json.message;
                         formStatus.className = "success";
                         form.reset();
