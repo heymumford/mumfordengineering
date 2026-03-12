@@ -2326,7 +2326,9 @@ body {
 
 /* ===== Micro-Typography ===== */
 
-/* Hanging punctuation on blockquotes — pull punctuation into the margin */
+/* Hanging punctuation on blockquotes — pull punctuation into the margin.
+   font-style: italic inherited from existing rule; no need for
+   font-variation-settings which would override other axes. */
 .writing-quote p {
     hanging-punctuation: first;
     text-indent: -0.45em;
@@ -2349,15 +2351,7 @@ body {
     font-variant-numeric: tabular-nums lining-nums;
 }
 
-/* Optical letter-spacing for uppercase mono — looser tracking aids readability */
-.section-ref,
-.nav-logo,
-.badge,
-.footer-copy::before {
-    word-spacing: 0.05em;
-}
-
-/* Em-dash treatment — tighter spacing within text */
+/* Word wrapping for long words to prevent overflow */
 .about-text p,
 .defender-card-body p {
     word-break: break-word;
@@ -2377,49 +2371,39 @@ body {
     -webkit-hyphens: auto;
 }
 
-/* Blockquote — proper italic axis for display serif */
-.writing-quote p {
-    font-variation-settings: 'ital' 1;
-}
-
 /* Software card titles — tighter tracking at larger mono sizes */
 .software-card h3 {
     letter-spacing: -0.01em;
 }
 
 
-/* ===== Spatial Rhythm — 8px Grid Harmonics ===== */
+/* ===== Spatial Rhythm ===== */
 
-/* Vertical rhythm: all spacing multiples of 8px
-   4px (0.5), 8px (1), 12px (1.5), 16px (2), 24px (3),
-   32px (4), 40px (5), 48px (6), 64px (8), 80px (10), 96px (12) */
+/* Vertical rhythm based on 4px/8px grid. Sub-8px values (2px, 4px)
+   are intentional optical adjustments for tight element coupling. */
 
-/* Section title group — tighter title-to-subtitle coupling */
+/* Section title group — pull title closer to section-ref */
 .section-ref + .section-title {
-    margin-top: 4px;
+    margin-top: -4px;
 }
 
 /* Cards — harmonize internal padding rhythm */
 .defender-card-body h3 {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .software-card p {
     margin-bottom: 12px;
 }
 
-/* Stats section — rhythmic gaps between stat elements */
+/* Stats section — tighten stat element coupling */
 .stat-card::before {
-    margin-bottom: 6px;
-}
-
-.stat-label {
-    margin-bottom: 2px;
+    margin-bottom: 4px;
 }
 
 /* Footer — tighter vertical rhythm */
 .site-footer {
-    padding: 24px 0;
+    padding-bottom: 24px;
 }
 
 /* Topic pills container — proportional bottom space */
@@ -2431,7 +2415,8 @@ body {
 /* ===== Section Visual Flow ===== */
 
 /* Gradient bleed at section-alt boundaries — softens the hard
-   color transition between vellum and parchment backgrounds */
+   color transition between vellum and parchment backgrounds.
+   Uses CSS vars so dark mode works automatically. */
 .section-alt {
     background: linear-gradient(
         to bottom,
@@ -2466,9 +2451,9 @@ body {
 
 /* ===== Dark Mode — Atmospheric Depth ===== */
 
-/* Dark mode isn't just inverted light mode. These additions create
-   depth and atmosphere: layered shadow wells, subtle inner glow
-   on surfaces, and ambient vignetting. */
+/* Depth and atmosphere beyond color inversion: layered shadow wells,
+   inner glow on surfaces, ambient vignetting. Gradient backgrounds
+   use CSS vars and don't need dark-mode overrides. */
 
 @media (prefers-color-scheme: dark) {
     /* Inset glow on cards — simulates light leaking from screen edge */
@@ -2503,15 +2488,8 @@ body {
         z-index: 2;
     }
 
-    /* Section-alt in dark mode — deeper shadow well */
+    /* Section-alt — deeper shadow well (gradient inherits via vars) */
     :root:not([data-theme="light"]) .section-alt {
-        background: linear-gradient(
-            to bottom,
-            var(--bg-primary) 0px,
-            var(--bg-secondary) 48px,
-            var(--bg-secondary) calc(100% - 48px),
-            var(--bg-primary) 100%
-        );
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
     }
 
@@ -2520,7 +2498,7 @@ body {
         box-shadow: 0 0 12px rgba(212, 160, 48, 0.15);
     }
 
-    /* Card hover — atmospheric lift with warm ambient glow */
+    /* Card hover — atmospheric lift with accent-tinted ring */
     :root:not([data-theme="light"]) .defender-card:hover {
         box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.05),
@@ -2538,17 +2516,6 @@ body {
     /* Scroll rail dots — glow on active */
     :root:not([data-theme="light"]) .scroll-rail__dot--active {
         box-shadow: 0 0 6px rgba(212, 160, 48, 0.30);
-    }
-
-    /* Section gradient bleed — subtle in dark mode */
-    :root:not([data-theme="light"]) #writing {
-        background: linear-gradient(
-            to bottom,
-            var(--bg-primary) 0px,
-            var(--bg-secondary) 64px,
-            var(--bg-secondary) calc(100% - 64px),
-            var(--bg-primary) 100%
-        );
     }
 
     /* Blockquote — warmer glow border in dark */
@@ -2589,13 +2556,6 @@ body {
 }
 
 [data-theme="dark"] .section-alt {
-    background: linear-gradient(
-        to bottom,
-        var(--bg-primary) 0px,
-        var(--bg-secondary) 48px,
-        var(--bg-secondary) calc(100% - 48px),
-        var(--bg-primary) 100%
-    );
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
@@ -2619,16 +2579,6 @@ body {
 
 [data-theme="dark"] .scroll-rail__dot--active {
     box-shadow: 0 0 6px rgba(212, 160, 48, 0.30);
-}
-
-[data-theme="dark"] #writing {
-    background: linear-gradient(
-        to bottom,
-        var(--bg-primary) 0px,
-        var(--bg-secondary) 64px,
-        var(--bg-secondary) calc(100% - 64px),
-        var(--bg-primary) 100%
-    );
 }
 
 [data-theme="dark"] .writing-quote {
