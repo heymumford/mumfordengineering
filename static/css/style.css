@@ -2988,6 +2988,151 @@ body {
 }
 
 
+/* ==========================================================================
+   ITERATIONS 13-15 — Texture Depth, Typography Hierarchy, Final Harmony
+   ========================================================================== */
+
+
+/* ===== Iteration 13 — Texture & Material Finish ===== */
+
+/* Hero grid: subtle depth via box-shadow inset — paper pressed into surface */
+.hero-grid {
+    box-shadow: inset 0 0 120px rgba(43, 41, 38, 0.015);
+}
+
+/* Defender card image area: hatching pattern overlay for workshop feel */
+.defender-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 8px,
+        rgba(43, 41, 38, 0.015) 8px,
+        rgba(43, 41, 38, 0.015) 9px
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Override for cards that already use ::after for data-ref */
+.defender-card-img[data-ref]::after {
+    background: none;
+}
+
+/* Software card icon container: blueprint dot grid */
+.software-card-icon {
+    background-image: radial-gradient(
+        circle 0.5px at center,
+        rgba(26, 107, 122, 0.08) 0.5px,
+        transparent 0.5px
+    );
+    background-size: 6px 6px;
+}
+
+/* Blockquote: paper texture behind quote */
+.writing-quote {
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 23px,
+            rgba(184, 134, 11, 0.015) 23px,
+            rgba(184, 134, 11, 0.015) 24px
+        );
+}
+
+
+/* ===== Iteration 14 — Typography Hierarchy Refinement ===== */
+
+/* Section title: tighter bottom margin when followed by subtitle */
+.section-title + .section-subtitle {
+    margin-top: -4px;
+}
+
+/* Hero heading: wider letter-spacing at smaller clamp sizes */
+@media (max-width: 599px) {
+    .hero-heading {
+        letter-spacing: -0.01em;
+    }
+}
+
+@media (min-width: 1200px) {
+    .hero-heading {
+        letter-spacing: -0.025em;
+    }
+}
+
+/* Body text: slightly wider measure on desktop for serif readability */
+@media (min-width: 1200px) {
+    .about-text p {
+        max-width: 65ch;
+    }
+
+    .section-subtitle {
+        max-width: 60ch;
+    }
+}
+
+/* Defender note: italic with leading dash */
+.defender-note {
+    padding-inline-start: 16px;
+    position: relative;
+}
+
+.defender-note::before {
+    content: '—';
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--text-tertiary);
+}
+
+
+/* ===== Iteration 15 — Final Harmony & Cohesion ===== */
+
+/* Consistent border-radius: all cards share the same radius */
+.writing-quote {
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+/* Section ref — consistent left alignment with section title */
+.section-ref {
+    text-align: left;
+}
+
+.section-ref::before {
+    margin: 0 0 8px;
+}
+
+/* Stat cards — consistent vertical alignment */
+.stat-card {
+    justify-content: flex-start;
+    min-height: 120px;
+}
+
+/* Software card — consistent bottom padding for link alignment */
+.software-card {
+    padding-bottom: 24px;
+}
+
+/* Footer — link group consistent spacing */
+.footer-links {
+    align-items: center;
+}
+
+/* Global: consistent transition timing on all interactive elements */
+.pill,
+.tag,
+.badge,
+.scroll-rail__dot,
+.software-link,
+.contact-detail a,
+.footer-links a {
+    transition-timing-function: var(--ease-mechanical);
+}
+
+
 /* ===== Reduced Motion — Iteration 10 ===== */
 @media (prefers-reduced-motion: reduce) {
     .writing-coming::after {
