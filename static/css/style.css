@@ -2929,6 +2929,10 @@ html {
     :root:not([data-theme="light"]) ::-webkit-scrollbar-thumb:hover {
         background: rgba(255, 255, 255, 0.25);
     }
+
+    :root:not([data-theme="light"]) ::-webkit-scrollbar-corner {
+        background: #242120;
+    }
 }
 
 [data-theme="dark"] {
@@ -2946,6 +2950,10 @@ html {
 
 [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-corner {
+    background: #242120;
 }
 
 
@@ -3059,32 +3067,30 @@ body {
     }
 }
 
-/* --- Dark mode: mobile menu backdrop + menu background --- */
-@media (prefers-color-scheme: dark) {
-    @media (max-width: 767px) {
-        :root:not([data-theme="light"]) .nav-menu::before {
-            background: rgba(0, 0, 0, 0.35);
-        }
+/* --- Dark mode: mobile menu backdrop + menu background ---
+   Flat (non-nested) @media for broad browser compatibility. */
+@media (prefers-color-scheme: dark) and (max-width: 767px) {
+    :root:not([data-theme="light"]) .nav-menu::before {
+        background: rgba(0, 0, 0, 0.35);
+    }
 
-        :root:not([data-theme="light"]) .nav-link.active {
-            border-left-color: var(--accent-warm);
-        }
+    :root:not([data-theme="light"]) .nav-link.active {
+        border-left-color: var(--accent-warm);
     }
 }
 
-/* --- Reduced motion: disable stagger, instant transitions --- */
-@media (prefers-reduced-motion: reduce) {
-    @media (max-width: 767px) {
-        .nav-menu > li {
-            opacity: 1;
-            transform: none;
-            transition-delay: 0s !important;
-            transition-duration: 0.01ms !important;
-        }
+/* --- Reduced motion: disable stagger, instant transitions ---
+   Flat (non-nested) @media for broad browser compatibility. */
+@media (prefers-reduced-motion: reduce) and (max-width: 767px) {
+    .nav-menu > li {
+        opacity: 1;
+        transform: none;
+        transition-delay: 0s !important;
+        transition-duration: 0.01ms !important;
+    }
 
-        .nav-menu::before {
-            transition-duration: 0.01ms !important;
-        }
+    .nav-menu::before {
+        transition-duration: 0.01ms !important;
     }
 }
 
