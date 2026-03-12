@@ -354,6 +354,30 @@
 
 
     // =================================================================
+    // FONT LOADING (FOUT management)
+    // Adds .fonts-loading during load, swaps to .fonts-loaded when ready.
+    // Falls back after 3s for progressive enhancement.
+    // =================================================================
+
+    document.body.classList.add("fonts-loading");
+
+    var fontTimeout = setTimeout(function () {
+        document.body.classList.remove("fonts-loading");
+        document.body.classList.add("fonts-loaded");
+    }, 3000);
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+            clearTimeout(fontTimeout);
+            requestAnimationFrame(function () {
+                document.body.classList.remove("fonts-loading");
+                document.body.classList.add("fonts-loaded");
+            });
+        });
+    }
+
+
+    // =================================================================
     // CONTACT FORM
     // =================================================================
 
