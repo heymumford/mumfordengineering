@@ -76,7 +76,7 @@ async def health():
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request, "index.html")
 
 
 @app.post("/contact")
@@ -105,4 +105,4 @@ async def contact(
 
 @app.exception_handler(404)
 async def not_found(request: Request, _exc):
-    return templates.TemplateResponse("index.html", {"request": request, "not_found": True}, status_code=404)
+    return templates.TemplateResponse(request, "index.html", status_code=404)
