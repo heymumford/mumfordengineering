@@ -3133,6 +3133,460 @@ body {
 }
 
 
+/* ==========================================================================
+   ITERATION 16 — Progressive Enhancement: Modern CSS Features
+   Container queries, text-wrap, subgrid, scrollbar-gutter.
+   All behind @supports — zero breakage in older browsers.
+   ========================================================================== */
+
+
+/* ===== Text Wrapping: Balanced Headings ===== */
+
+/* Prevents awkward single-word last lines in headings */
+@supports (text-wrap: balance) {
+    .hero-heading,
+    .section-title {
+        text-wrap: balance;
+    }
+}
+
+/* Body text: prettier wrapping avoids short orphan lines */
+@supports (text-wrap: pretty) {
+    .about-text p,
+    .defender-note,
+    .section-subtitle,
+    .writing-quote p {
+        text-wrap: pretty;
+    }
+}
+
+
+/* ===== Scrollbar Gutter Stability ===== */
+
+/* Prevent layout shift when content goes from no-scroll to scroll */
+@supports (scrollbar-gutter: stable) {
+    html {
+        scrollbar-gutter: stable;
+    }
+}
+
+
+/* ===== Subgrid: Card Content Alignment ===== */
+
+/* When browser supports subgrid, card grids align internal content rows */
+@supports (grid-template-rows: subgrid) {
+    .defender-grid {
+        grid-template-rows: auto;
+    }
+
+    .defender-card {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 3; /* image + body + tags */
+    }
+
+    .software-grid {
+        grid-template-rows: auto;
+    }
+
+    .software-card {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 3; /* icon + title/desc + link */
+    }
+}
+
+
+/* ===== Container Queries: Card-Level Responsiveness ===== */
+
+@supports (container-type: inline-size) {
+    /* Establish containment on card grid parents */
+    .defender-grid,
+    .software-grid {
+        container-type: inline-size;
+    }
+
+    /* Defender cards: adjust image height based on grid container width */
+    @container (max-width: 400px) {
+        .defender-card-img {
+            height: 100px;
+        }
+
+        .defender-card-body {
+            padding: 14px;
+        }
+    }
+
+    @container (min-width: 700px) {
+        .defender-card-img {
+            height: 200px;
+        }
+    }
+
+    /* Software cards: icon scales with container */
+    @container (max-width: 300px) {
+        .software-card-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .software-card {
+            padding: 16px;
+        }
+    }
+}
+
+
+/* ==========================================================================
+   ITERATION 17 — Cross-Browser Normalization & Edge Cases
+   Autofill styling, focus-within for forms, Safari-specific fixes,
+   contrast preferences, logical property completion.
+   ========================================================================== */
+
+
+/* ===== Autofill Styling ===== */
+
+/* Override browser autofill background to match the design system */
+.form-group input:-webkit-autofill,
+.form-group textarea:-webkit-autofill {
+    -webkit-text-fill-color: var(--text-primary);
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-card) inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+
+/* ===== Prefers Contrast ===== */
+
+/* Users who prefer more contrast — bump borders and text weight */
+@media (prefers-contrast: more) {
+    :root {
+        --border: rgba(43, 41, 38, 0.25);
+        --border-strong: rgba(43, 41, 38, 0.45);
+    }
+
+    .defender-card,
+    .software-card,
+    .stat-card {
+        border-width: 2px;
+    }
+
+    .section-title {
+        font-weight: 600;
+    }
+
+    .nav-link {
+        font-weight: 600;
+    }
+
+    .btn {
+        font-weight: 600;
+    }
+}
+
+/* Users who prefer less contrast — soften edges */
+@media (prefers-contrast: less) {
+    .section::before {
+        opacity: 0.3;
+    }
+
+    .defender-card,
+    .software-card,
+    .stat-card {
+        border-color: transparent;
+    }
+}
+
+
+/* ===== Safari Rendering Fixes ===== */
+
+/* Prevent Safari from snapping scroll on anchor navigation */
+@supports (-webkit-touch-callout: none) {
+    html {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Safari renders thin borders inconsistently at fractional zoom —
+       force 1px minimum via border-style solid (not outline) */
+    .defender-card,
+    .software-card {
+        -webkit-backface-visibility: hidden;
+    }
+}
+
+
+/* ===== Remaining Logical Properties ===== */
+
+/* Complete the RTL-safe conversion for remaining inline-direction props */
+.hero-annotation {
+    inset-inline-end: 24px;
+}
+
+.scroll-rail {
+    inset-inline-end: 20px;
+}
+
+.writing-quote {
+    border-inline-start-width: 3px;
+    border-inline-start-style: solid;
+    padding-inline-start: 24px;
+}
+
+
+/* ==========================================================================
+   ITERATION 18 — Micro-Interaction Polish & Loading States
+   Form interactions, skeleton placeholders, focus transitions,
+   button press feedback, card focus states.
+   ========================================================================== */
+
+
+/* ===== Form Input Focus Transition ===== */
+
+/* Smooth label slide-up and color shift on focus */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 3px rgba(26, 107, 122, 0.08);
+}
+
+/* Placeholder: fade out on focus for cleaner typing experience */
+.form-group input:focus::placeholder,
+.form-group textarea:focus::placeholder {
+    opacity: 0.4;
+    transition: opacity var(--duration-fast) var(--ease-mechanical);
+}
+
+
+/* ===== Button Press Feedback ===== */
+
+/* Subtle depression on active — 1px downward shift + reduced shadow */
+.btn:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:active:not(:disabled) {
+    box-shadow: none;
+}
+
+
+/* ===== Card Keyboard Focus States ===== */
+
+/* Cards need visible focus for keyboard navigation */
+.defender-card:focus-visible,
+.software-card:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 3px;
+    border-radius: var(--radius);
+}
+
+/* Stat cards: focus ring for when they contain links */
+.stat-card:focus-within {
+    outline: 2px dashed var(--accent-cyan);
+    outline-offset: 2px;
+}
+
+
+/* ===== Loading / Skeleton Placeholder ===== */
+
+/* Reusable skeleton class for image placeholders before lazy-load */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--bg-secondary) 25%,
+        var(--bg-card) 37%,
+        var(--bg-secondary) 63%
+    );
+    background-size: 400% 100%;
+    animation: skeleton-shimmer 1.4s ease infinite;
+}
+
+@keyframes skeleton-shimmer {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Image placeholders: match card image dimensions */
+.defender-card-img.skeleton {
+    background-color: var(--bg-secondary);
+}
+
+
+/* ===== Nav Link Active Indicator Transition ===== */
+
+/* Smooth the active indicator transition when scrolling between sections */
+.nav-link::after {
+    transition: width var(--duration-base) var(--ease-mechanical),
+                opacity var(--duration-fast) var(--ease-mechanical);
+}
+
+
+/* ==========================================================================
+   ITERATION 19 — Dark Mode Depth & Surface Refinement
+   Inset shadows on surfaces, card edge glow, footer depth,
+   hero vignette enhancement. Only properties that genuinely differ
+   from light mode — CSS vars handle color remapping automatically.
+   ========================================================================== */
+
+
+/* ===== Dark Mode: Surface Depth Cues ===== */
+
+/* In dark mode, surfaces need inset shadows to create depth perception.
+   Light mode uses outward shadows. Dark mode reverses — depth comes from
+   the surface appearing carved into the background. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .stat-card {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04),
+                    0 1px 3px rgba(0, 0, 0, 0.20);
+    }
+
+    :root:not([data-theme="light"]) .hero-grid {
+        box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.15);
+    }
+
+    :root:not([data-theme="light"]) .writing-quote {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    /* Footer: deeper recession in dark mode */
+    :root:not([data-theme="light"]) .site-footer {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    /* Hero vignette: stronger radial fade for dark mode theatrics */
+    :root:not([data-theme="light"]) .hero::before {
+        background: radial-gradient(
+            ellipse 80% 60% at 50% 40%,
+            transparent 40%,
+            rgba(0, 0, 0, 0.15) 100%
+        );
+    }
+}
+
+/* Manual dark toggle — same depth treatments */
+[data-theme="dark"] .stat-card {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04),
+                0 1px 3px rgba(0, 0, 0, 0.20);
+}
+
+[data-theme="dark"] .hero-grid {
+    box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .writing-quote {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="dark"] .site-footer {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="dark"] .hero::before {
+    background: radial-gradient(
+        ellipse 80% 60% at 50% 40%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.15) 100%
+    );
+}
+
+
+/* ==========================================================================
+   ITERATION 20 — Final Cohesion Audit & Design System Completion
+   Specificity normalization, cascade layer prep, stacking context
+   documentation, transition shorthand consolidation, final edge cases.
+   ========================================================================== */
+
+
+/* ===== Stacking Context: Explicit Z-Index Scale ===== */
+
+/* Document the z-index layers used throughout the system.
+   Having these in one place prevents z-index wars. */
+:root {
+    --z-base: 0;
+    --z-card-overlay: 1;        /* card pseudo-elements, badges */
+    --z-section-indicator: 5;   /* floating section indicator */
+    --z-scroll-rail: 10;        /* side scroll rail */
+    --z-header: 100;            /* sticky header */
+    --z-nav-menu: 200;          /* mobile nav overlay */
+    --z-skip-link: 999;         /* skip-to-content link */
+}
+
+/* Apply documented z-index values — replace magic numbers */
+.skip-link:focus {
+    z-index: var(--z-skip-link);
+}
+
+
+/* ===== Interaction State Consistency ===== */
+
+/* All interactive cards: consistent transition shorthand */
+.defender-card,
+.software-card {
+    transition: border-color var(--duration-base) var(--ease-mechanical),
+                box-shadow var(--duration-base) var(--ease-mechanical);
+}
+
+/* All form inputs: consistent transition */
+.form-group input,
+.form-group textarea {
+    transition: border-color var(--duration-fast) var(--ease-mechanical),
+                box-shadow var(--duration-fast) var(--ease-mechanical);
+}
+
+
+/* ===== Content Security: Overflow Guards ===== */
+
+/* Prevent any content from breaking the viewport — safety net */
+.container {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Long URLs or code snippets in cards */
+.defender-card-body,
+.software-card {
+    overflow-wrap: break-word;
+}
+
+/* Stat numbers: prevent font metric overflow on narrow screens */
+.stat-number {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ===== Image Aspect Ratio Stability ===== */
+
+/* Prevent CLS from images loading — explicit aspect-ratio */
+.defender-card-img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.defender-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* ===== Final Touch: System Font Metrics ===== */
+
+/* Adjust fallback font size to minimize FOUT reflow.
+   Georgia (serif fallback) is ~8% wider than Source Serif 4.
+   size-adjust corrects this. */
+@supports (size-adjust: 100%) {
+    @font-face {
+        font-family: 'Source Serif 4 Fallback';
+        src: local('Georgia');
+        size-adjust: 92%;
+        ascent-override: 95%;
+        descent-override: 22%;
+        line-gap-override: 0%;
+    }
+}
+
+
 /* ===== Reduced Motion — Iteration 10 ===== */
 @media (prefers-reduced-motion: reduce) {
     .writing-coming::after {
