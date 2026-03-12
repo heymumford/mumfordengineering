@@ -48,7 +48,8 @@
         var targetId = link.getAttribute("href");
         if (targetId === "#") return;
 
-        var target = document.querySelector(targetId);
+        var target;
+        try { target = document.querySelector(targetId); } catch (e) { return; }
         if (!target) return;
 
         e.preventDefault();
@@ -100,6 +101,7 @@
             fetch("/contact", {
                 method: "POST",
                 body: data,
+                headers: { "X-Requested-With": "XMLHttpRequest" },
             })
                 .then(function (resp) {
                     if (!resp.ok && resp.status !== 422) {

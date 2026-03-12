@@ -298,7 +298,7 @@ a:hover {
 
 .btn-primary {
     background: var(--accent-warm);
-    color: #fff;
+    color: var(--bg-primary);
     border-color: var(--accent-warm);
 }
 
@@ -652,7 +652,8 @@ a:hover {
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: var(--accent-cool);
-    outline: none;
+    outline: 2px solid var(--accent-cool);
+    outline-offset: 1px;
     box-shadow: 0 0 0 3px rgba(62, 207, 142, 0.15);
 }
 

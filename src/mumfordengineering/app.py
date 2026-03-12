@@ -5,7 +5,8 @@ import re
 import time
 from pathlib import Path
 
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, Response
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -30,21 +31,53 @@ SECURITY_HEADERS = {
     "X-Frame-Options": "DENY",
     "X-XSS-Protection": "0",
     "Referrer-Policy": "strict-origin-when-cross-origin",
-    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "Permissions-Policy": (
+        "camera=(), microphone=(), geolocation=(), payment=(), "
+        "display-capture=(), accelerometer=(), gyroscope=(), usb=(), "
+        "magnetometer=(), picture-in-picture=()"
+    ),
+    "Cross-Origin-Opener-Policy": "same-origin",
     "Content-Security-Policy": (
         "default-src 'self'; "
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "style-src 'self' https://fonts.googleapis.com; "
         "font-src 'self' https://fonts.gstatic.com; "
         "img-src 'self' data:; "
         "script-src 'self'; "
-        "connect-src 'self'"
+        "connect-src 'self'; "
+        "base-uri 'none'; "
+        "form-action 'self'; "
+        "object-src 'none'; "
+        "frame-ancestors 'none'"
     ),
 }
 
-_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+# Allowlist-style email regex: alphanumeric + common specials only
+_EMAIL_RE = re.compile(r"^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$")
 _MAX_NAME = 200
 _MAX_EMAIL = 254
 _MAX_MESSAGE = 5000
+_MAX_BODY_BYTES = 1_048_576  # 1 MB
+
+
+@app.middleware("http")
+async def reject_null_bytes(request: Request, call_next):
+    """Block requests with null bytes in the path (prevents StaticFiles ValueError)."""
+    if "\x00" in request.url.path:
+        return JSONResponse({"error": "bad request"}, status_code=400)
+    return await call_next(request)
+
+
+@app.middleware("http")
+async def limit_body_size(request: Request, call_next):
+    """Reject requests with declared body larger than 1 MB."""
+    content_length = request.headers.get("content-length")
+    if content_length:
+        try:
+            if int(content_length) > _MAX_BODY_BYTES:
+                return JSONResponse({"error": "payload too large"}, status_code=413)
+        except ValueError:
+            pass
+    return await call_next(request)
 
 
 @app.middleware("http")
@@ -56,11 +89,22 @@ async def add_security_headers(request: Request, call_next):
         response = JSONResponse({"error": "internal server error"}, status_code=500)
     for header, value in SECURITY_HEADERS.items():
         response.headers[header] = value
-    if request.url.path.startswith("/static/"):
+    if request.url.path.startswith("/static/") and response.status_code == 200:
         response.headers["Cache-Control"] = "public, max-age=86400, must-revalidate"
     else:
         response.headers["Cache-Control"] = "no-cache"
     return response
+
+
+# --- Custom validation error handler (prevent input reflection) ---
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        {"status": "error", "message": "Invalid form data."},
+        status_code=422,
+    )
 
 
 # --- Rate limiting for contact form ---
@@ -72,41 +116,59 @@ CONTACT_WINDOW = 3600  # seconds
 
 
 def _get_client_ip(request: Request) -> str:
-    """Extract real client IP from Fly.io proxy headers."""
+    """Extract real client IP from Fly.io proxy headers.
+
+    Only trusts fly-client-ip (set by Fly.io proxy, not spoofable from
+    outside the proxy). Falls back to the TCP peer address — does NOT
+    trust x-forwarded-for from arbitrary clients.
+    """
     ip = request.headers.get("fly-client-ip")
     if ip:
         return ip.strip()
-    forwarded = request.headers.get("x-forwarded-for", "")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
     return request.client.host if request.client else "unknown"
 
 
 def _is_rate_limited(ip: str) -> bool:
     now = time.time()
-    timestamps = _contact_timestamps.get(ip, [])
-    timestamps = [t for t in timestamps if now - t < CONTACT_WINDOW]
-    if not timestamps:
-        _contact_timestamps.pop(ip, None)
-        return False
-    _contact_timestamps[ip] = timestamps
+    timestamps = [t for t in _contact_timestamps.get(ip, []) if now - t < CONTACT_WINDOW]
     if len(timestamps) >= CONTACT_RATE_LIMIT:
+        _contact_timestamps[ip] = timestamps
         return True
     timestamps.append(now)
+    _contact_timestamps[ip] = timestamps
     return False
 
 
+# Unicode categories that should not appear in log output
+_LOG_UNSAFE_RE = re.compile(r"[\x00-\x1f\x7f-\x9f\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]")
+
+
 def _sanitize_log(value: str) -> str:
-    """Strip control characters for safe logging."""
-    return re.sub(r"[\x00-\x1f\x7f-\x9f]", "", value)[:200]
+    """Strip control characters, bidi overrides, and zero-width chars for safe logging."""
+    return _LOG_UNSAFE_RE.sub("", value)[:200]
+
+
+def _clean_field(value: str) -> str:
+    """Strip BOM, null bytes, and whitespace from a form field."""
+    return value.replace("\x00", "").lstrip("\ufeff").strip()
 
 
 # --- Routes ---
 
 
+@app.head("/health")
+async def health_head():
+    return Response(status_code=200, media_type="application/json")
+
+
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+@app.head("/", response_class=HTMLResponse)
+async def index_head():
+    return Response(status_code=200, media_type="text/html")
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -122,13 +184,13 @@ async def contact(
     message: str = Form(..., max_length=_MAX_MESSAGE),
     website: str = Form(""),  # honeypot field
 ):
-    # Honeypot — bots fill hidden fields
+    # Honeypot -- bots fill hidden fields
     if website:
         return JSONResponse({"status": "ok", "message": "Message received. I'll get back to you."})
 
-    name = name.strip()
-    email = email.strip()
-    message = message.strip()
+    name = _clean_field(name)
+    email = _clean_field(email)
+    message = _clean_field(message)
 
     if not name or not email or not message:
         return JSONResponse({"status": "error", "message": "All fields are required."}, status_code=422)
