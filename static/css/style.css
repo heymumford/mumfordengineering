@@ -2630,15 +2630,14 @@ body {
 /* Stat card — subtle amber top accent on hover */
 .stat-card:hover {
     border-top: 2px solid var(--accent-warm);
-    padding-top: 18px; /* compensate for 2px border */
+    padding-top: 19px; /* compensate: 2px border + 19px = 1px border + 20px */
 }
 
 
 /* ===== Footer — Engineering Document Closing ===== */
 
-/* Revision info — right-aligned companion to SHEET 1 OF 1 */
-.footer-copy::after {
-    content: '  ·  REV. 2026.03';
+/* Revision info — styled via .footer-rev span in HTML */
+.footer-rev {
     font-size: 0.5625rem;
     letter-spacing: 0.10em;
     text-transform: uppercase;
@@ -2709,27 +2708,7 @@ body {
 }
 
 
-/* ===== Dark Mode — Iteration 8 ===== */
-
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .stat-card:hover {
-        border-top-color: var(--accent-warm);
-    }
-
-    :root:not([data-theme="light"]) .footer-links a::before,
-    :root:not([data-theme="light"]) .footer-links a::after {
-        background: var(--accent-cyan);
-    }
-}
-
-[data-theme="dark"] .stat-card:hover {
-    border-top-color: var(--accent-warm);
-}
-
-[data-theme="dark"] .footer-links a::before,
-[data-theme="dark"] .footer-links a::after {
-    background: var(--accent-cyan);
-}
+/* Dark mode: stat/footer use CSS vars, no overrides needed */
 
 
 /* ===== Reduced Motion ===== */
@@ -2809,6 +2788,10 @@ body {
     }
 
     .footer-links a:hover {
+        transform: none !important;
+    }
+
+    .software-card:hover .software-link svg {
         transform: none !important;
     }
 }
