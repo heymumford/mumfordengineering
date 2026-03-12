@@ -1994,11 +1994,14 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* GPU compositor layer hints for animated elements */
-.defender-card,
-.software-card {
-    will-change: transform;
-    transform: translateZ(0);
+/* GPU compositor layer hints — scoped to fine-pointer (mouse/trackpad) devices
+   that actually use the 3D tilt hover effect. Avoids unnecessary compositor
+   layers on touch devices. */
+@media (pointer: fine) {
+    .defender-card,
+    .software-card {
+        will-change: transform;
+    }
 }
 
 .nav-progress {
