@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mumford Engineering — Eric Mumford</title>
+    <meta name="description" content="Eric Mumford — Engineering custom Land Rover Defender parts, cognitive software architectures, and IBM i automation tools.">
+    <meta name="author" content="Eric Mumford">
+    <meta name="theme-color" content="#0f0f1a">
+    <link rel="canonical" href="https://mumfordengineering.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Eric Mumford",
+        "url": "https://mumfordengineering.com",
+        "jobTitle": "Senior Architect",
+        "knowsAbout": ["Software Architecture", "Land Rover Defender", "IBM i", "Knowledge Graphs"],
+        "sameAs": ["https://github.com/heymumford"]
+    }
+    </script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- Navigation -->
+    <header class="site-header" id="site-header">
+        <nav class="nav-container" aria-label="Primary navigation">
+            <a href="/" class="nav-logo" aria-label="Mumford Engineering home">
+                <span class="nav-logo-bold">MUMFORD</span><span class="nav-logo-light">ENGINEERING</span>
+            </a>
+            <button class="hamburger" id="hamburger" type="button"
+                    aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu" role="list">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#defender" class="nav-link">Defender</a></li>
+                <li><a href="#software" class="nav-link">Software</a></li>
+                <li><a href="#writing" class="nav-link">Writing</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+        <!-- Hero Section -->
+        <section class="hero" aria-label="Introduction">
+            <div class="hero-grid" aria-hidden="true"></div>
+            <div class="hero-content">
+                <h1 class="hero-heading">Engineering Solutions Across Domains</h1>
+                <p class="hero-sub">From custom Land Rover Defender fabrication to cognitive software architectures — I build things that work.</p>
+                <div class="hero-cta">
+                    <a href="#software" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="container">
+                <h2 class="section-title fade-in">About</h2>
+                <div class="about-grid">
+                    <div class="about-text fade-in">
+                        <p>I'm Eric Mumford — a senior architect who builds across the full spectrum of engineering. Whether it's fabricating custom aluminum heater boxes for classic Land Rover Defenders or designing multi-organ cognitive software systems, I apply the same principles: measure twice, build to last, test everything.</p>
+                        <p>My background spans enterprise automation, knowledge graph systems, and hands-on fabrication. I believe the best engineering happens at the intersection of physical craft and computational thinking.</p>
+                        <p>When I'm not writing code or bending metal, I write about philosophy, artificial intelligence, and the human side of technology.</p>
+                    </div>
+                    <div class="stats-grid fade-in">
+                        <div class="stat-card">
+                            <span class="stat-number">4+</span>
+                            <span class="stat-label">Domains</span>
+                            <span class="stat-detail">Fabrication, software, automation, writing</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">6</span>
+                            <span class="stat-label">Active Repos</span>
+                            <span class="stat-detail">Open source projects</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">20+</span>
+                            <span class="stat-label">Years</span>
+                            <span class="stat-detail">Engineering experience</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Defender Parts Section -->
+        <section class="section section-alt" id="defender">
+            <div class="container">
+                <h2 class="section-title fade-in">Defender Fabrication</h2>
+                <p class="section-subtitle fade-in">Custom-engineered parts for Land Rover Defender 90, 110, and 130</p>
+                <div class="defender-grid">
+                    <div class="defender-card fade-in">
+                        <!-- REPLACE: Add product photo here -->
+                        <div class="defender-card-img" aria-hidden="true">
+                            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="12" y="20" width="40" height="28" rx="3"/>
+                                <path d="M20 20v-6a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v6"/>
+                                <line x1="32" y1="30" x2="32" y2="40"/>
+                                <line x1="27" y1="35" x2="37" y2="35"/>
+                            </svg>
+                        </div>
+                        <div class="defender-card-body">
+                            <h3>Custom Heater Box</h3>
+                            <p>Redesigned aluminum heater box that replaces the brittle OEM plastic unit. Improved airflow channels, corrosion-resistant construction, and direct bolt-in fitment.</p>
+                            <span class="badge badge-available">Available</span>
+                        </div>
+                    </div>
+                    <div class="defender-card fade-in">
+                        <!-- REPLACE: Add product photo here -->
+                        <div class="defender-card-img" aria-hidden="true">
+                            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M16 48V16l8-8h16l8 8v32"/>
+                                <circle cx="32" cy="28" r="6"/>
+                                <line x1="32" y1="34" x2="32" y2="48"/>
+                                <circle cx="32" cy="12" r="2"/>
+                            </svg>
+                        </div>
+                        <div class="defender-card-body">
+                            <h3>Redesigned Door Hinges</h3>
+                            <p>Heavy-duty stainless steel hinges engineered to eliminate the sagging door problem. Greased bearings, increased pin diameter, and reinforced mounting plates.</p>
+                            <span class="badge badge-available">Available</span>
+                        </div>
+                    </div>
+                    <div class="defender-card fade-in">
+                        <!-- REPLACE: Add product photo here -->
+                        <div class="defender-card-img" aria-hidden="true">
+                            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="10" y="14" width="44" height="36" rx="2"/>
+                                <line x1="10" y1="24" x2="54" y2="24"/>
+                                <line x1="10" y1="34" x2="54" y2="34"/>
+                                <line x1="10" y1="44" x2="54" y2="44"/>
+                                <line x1="22" y1="14" x2="22" y2="50"/>
+                                <line x1="42" y1="14" x2="42" y2="50"/>
+                            </svg>
+                        </div>
+                        <div class="defender-card-body">
+                            <h3>Aluminum Vent Panels</h3>
+                            <p>Precision-cut aluminum vent panels replacing deteriorated OEM units. Powder-coated finish, integrated mesh screens, and improved ventilation geometry.</p>
+                            <span class="badge badge-dev">In Development</span>
+                        </div>
+                    </div>
+                    <div class="defender-card fade-in">
+                        <!-- REPLACE: Add product photo here -->
+                        <div class="defender-card-img" aria-hidden="true">
+                            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M8 52h48"/>
+                                <path d="M14 52V20l18-12 18 12v32"/>
+                                <path d="M20 52V32h24v20"/>
+                                <line x1="32" y1="32" x2="32" y2="52"/>
+                                <path d="M24 24h4v4h-4z"/>
+                                <path d="M36 24h4v4h-4z"/>
+                            </svg>
+                        </div>
+                        <div class="defender-card-body">
+                            <h3>Bulkhead Reinforcement</h3>
+                            <p>Structural reinforcement kit for the bulkhead foot wells -- the most common rust-through point. Bolt-on galvanized plates with drain channels to prevent future corrosion.</p>
+                            <span class="badge badge-dev">In Development</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="defender-note fade-in">All parts are designed in CAD, fabricated from aluminum or steel, and test-fitted before shipping.</p>
+            </div>
+        </section>
+
+        <!-- Software Section -->
+        <section class="section" id="software">
+            <div class="container">
+                <h2 class="section-title fade-in">Software Architecture</h2>
+                <p class="section-subtitle fade-in">Open source tools for cognitive computing, knowledge graphs, and legacy system automation</p>
+                <div class="software-grid">
+                    <a href="https://github.com/heymumford/cognilateral" class="software-card fade-in" target="_blank" rel="noopener noreferrer">
+                        <div class="software-card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 64 64" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="32" cy="18" r="8"/>
+                                <circle cx="16" cy="46" r="6"/>
+                                <circle cx="48" cy="46" r="6"/>
+                                <circle cx="32" cy="50" r="6"/>
+                                <line x1="28" y1="25" x2="19" y2="41"/>
+                                <line x1="36" y1="25" x2="45" y2="41"/>
+                                <line x1="32" y1="26" x2="32" y2="44"/>
+                                <path d="M22 46h20" stroke-dasharray="2 3"/>
+                            </svg>
+                        </div>
+                        <h3>Cognilateral</h3>
+                        <p>Multi-organ cognitive architecture -- a nervous system for autonomous observation, analysis, and execution. Built with Python, FastAPI, Neo4j.</p>
+                        <div class="tag-row">
+                            <span class="tag">Python</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">Neo4j</span>
+                            <span class="tag">EventBus</span>
+                        </div>
+                        <span class="software-link" aria-label="View Cognilateral on GitHub">View on GitHub
+                            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12L12 4M12 4H6M12 4v6"/></svg>
+                        </span>
+                    </a>
+                    <a href="https://github.com/heymumford/cortical2" class="software-card fade-in" target="_blank" rel="noopener noreferrer">
+                        <div class="software-card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 64 64" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="32" cy="32" r="5"/>
+                                <circle cx="16" cy="16" r="4"/>
+                                <circle cx="48" cy="16" r="4"/>
+                                <circle cx="16" cy="48" r="4"/>
+                                <circle cx="48" cy="48" r="4"/>
+                                <line x1="28" y1="28" x2="20" y2="20"/>
+                                <line x1="36" y1="28" x2="44" y2="20"/>
+                                <line x1="28" y1="36" x2="20" y2="44"/>
+                                <line x1="36" y1="36" x2="44" y2="44"/>
+                                <line x1="20" y1="16" x2="44" y2="16"/>
+                                <line x1="16" y1="20" x2="16" y2="44"/>
+                                <line x1="48" y1="20" x2="48" y2="44"/>
+                            </svg>
+                        </div>
+                        <h3>Cortical</h3>
+                        <p>Neo4j-backed knowledge graph and pattern recognition engine. Ingests observations, discovers patterns, builds models.</p>
+                        <div class="tag-row">
+                            <span class="tag">Python</span>
+                            <span class="tag">Neo4j</span>
+                            <span class="tag">MCP</span>
+                        </div>
+                        <span class="software-link" aria-label="View Cortical on GitHub">View on GitHub
+                            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12L12 4M12 4H6M12 4v6"/></svg>
+                        </span>
+                    </a>
+                    <a href="https://github.com/heymumford/hti5250j" class="software-card fade-in" target="_blank" rel="noopener noreferrer">
+                        <div class="software-card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 64 64" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="8" y="10" width="48" height="36" rx="3"/>
+                                <line x1="8" y1="42" x2="56" y2="42"/>
+                                <rect x="22" y="46" width="20" height="4" rx="1"/>
+                                <line x1="14" y1="18" x2="22" y2="18"/>
+                                <line x1="14" y1="24" x2="30" y2="24"/>
+                                <line x1="14" y1="30" x2="26" y2="30"/>
+                                <line x1="14" y1="36" x2="18" y2="36"/>
+                                <rect x="36" y="16" width="14" height="10" rx="1" stroke-dasharray="2 2"/>
+                            </svg>
+                        </div>
+                        <h3>HTI5250J</h3>
+                        <p>Headless IBM i 5250 terminal emulator for automated testing. Removes GUI dependencies from TN5250J for programmatic AS/400 integration.</p>
+                        <div class="tag-row">
+                            <span class="tag">Java</span>
+                            <span class="tag">Gradle</span>
+                            <span class="tag">EBCDIC</span>
+                            <span class="tag">Virtual Threads</span>
+                        </div>
+                        <span class="software-link" aria-label="View HTI5250J on GitHub">View on GitHub
+                            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12L12 4M12 4H6M12 4v6"/></svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Writing Section -->
+        <section class="section section-alt" id="writing">
+            <div class="container">
+                <h2 class="section-title fade-in">Writing &amp; Ideas</h2>
+                <p class="section-subtitle fade-in">Essays on philosophy, artificial intelligence, and the intersection of human and machine thinking</p>
+                <div class="writing-content fade-in">
+                    <p class="writing-coming">Essays coming soon to Substack. Topics I'm exploring:</p>
+                    <div class="topic-pills">
+                        <span class="pill">Philosophy of Mind</span>
+                        <span class="pill">AI Ethics</span>
+                        <span class="pill">Engineering Culture</span>
+                        <span class="pill">Epistemology</span>
+                        <span class="pill">Technology &amp; Society</span>
+                    </div>
+                    <blockquote class="writing-quote">
+                        <p>"The unexamined code is not worth shipping."</p>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <div class="container">
+                <h2 class="section-title fade-in">Get In Touch</h2>
+                <div class="contact-grid fade-in">
+                    <form class="contact-form" id="contact-form" method="post" action="/contact" novalidate>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required autocomplete="name" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required autocomplete="email" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+                        </div>
+                        <!-- Honeypot -->
+                        <div class="form-group" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit">Send Message</button>
+                        <div id="form-status" role="status" aria-live="polite"></div>
+                    </form>
+                    <div class="contact-info">
+                        <div class="contact-detail">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                            </svg>
+                            <a href="https://github.com/heymumford" target="_blank" rel="noopener noreferrer">github.com/heymumford</a>
+                        </div>
+                        <div class="contact-detail">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="M22 4l-10 8L2 4"/>
+                            </svg>
+                            <a href="mailto:eric@mumfordengineering.com">eric@mumfordengineering.com</a>
+                        </div>
+                        <div class="contact-detail">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span>Virginia, USA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p class="footer-copy">Eric Mumford &middot; 2026</p>
+            <div class="footer-links">
+                <a href="https://github.com/heymumford" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Substack">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 4h16M4 8h16M4 12l8 6 8-6"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                        <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', path='js/main.js') }}"></script>
+</body>
+</html>
