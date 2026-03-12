@@ -2844,11 +2844,7 @@ body {
 
 /* ===== Wide Desktop (1200px+) ===== */
 @media (min-width: 1200px) {
-    .container {
-        max-width: var(--container-max);
-        padding: 0 48px;
-    }
-
+    .container,
     .nav-container {
         max-width: var(--container-max);
         padding: 0 48px;
