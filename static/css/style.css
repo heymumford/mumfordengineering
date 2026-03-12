@@ -2318,6 +2318,274 @@ body {
 }
 
 
+/* ==========================================================================
+   ITERATION 7 — Micro-Typography, Spatial Rhythm, Dark Mode Depth
+   Typography refinements, vertical rhythm harmonics, atmospheric dark mode
+   ========================================================================== */
+
+
+/* ===== Micro-Typography ===== */
+
+/* Hanging punctuation on blockquotes — pull punctuation into the margin.
+   font-style: italic inherited from existing rule; no need for
+   font-variation-settings which would override other axes. */
+.writing-quote p {
+    hanging-punctuation: first;
+    text-indent: -0.45em;
+    padding-left: 0.45em;
+}
+
+/* Old-style figures for body text — more harmonious with serif type */
+.about-text,
+.writing-content,
+.section-subtitle,
+.defender-card-body p {
+    font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* Tabular lining figures for data displays — alignment matters */
+.stat-number,
+.section-ref,
+.annotation-value,
+.annotation-dwg {
+    font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Word wrapping for long words to prevent overflow */
+.about-text p,
+.defender-card-body p {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* First paragraph — small cap lead-in for the about section */
+.about-text p:first-child::first-line {
+    font-variant-caps: small-caps;
+    letter-spacing: 0.03em;
+}
+
+/* Hero sub — optical size adjustment for intermediate text */
+.hero-sub {
+    font-optical-sizing: auto;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+}
+
+/* Software card titles — tighter tracking at larger mono sizes */
+.software-card h3 {
+    letter-spacing: -0.01em;
+}
+
+
+/* ===== Spatial Rhythm ===== */
+
+/* Vertical rhythm based on 4px/8px grid. Sub-8px values (2px, 4px)
+   are intentional optical adjustments for tight element coupling. */
+
+/* Section title group — pull title closer to section-ref */
+.section-ref + .section-title {
+    margin-top: -4px;
+}
+
+/* Cards — harmonize internal padding rhythm */
+.defender-card-body h3 {
+    margin-bottom: 4px;
+}
+
+.software-card p {
+    margin-bottom: 12px;
+}
+
+/* Stats section — tighten stat element coupling */
+.stat-card::before {
+    margin-bottom: 4px;
+}
+
+/* Footer — tighter vertical rhythm */
+.site-footer {
+    padding-bottom: 24px;
+}
+
+/* Topic pills container — proportional bottom space */
+.topic-pills {
+    margin-bottom: 32px;
+}
+
+
+/* ===== Section Visual Flow ===== */
+
+/* Gradient bleed at section-alt boundaries — softens the hard
+   color transition between vellum and parchment backgrounds.
+   Uses CSS vars so dark mode works automatically. */
+.section-alt {
+    background: linear-gradient(
+        to bottom,
+        var(--bg-primary) 0px,
+        var(--bg-secondary) 48px,
+        var(--bg-secondary) calc(100% - 48px),
+        var(--bg-primary) 100%
+    );
+}
+
+/* Writing section: deeper gradient for distinct feel */
+#writing {
+    background: linear-gradient(
+        to bottom,
+        var(--bg-primary) 0px,
+        var(--bg-secondary) 64px,
+        var(--bg-secondary) calc(100% - 64px),
+        var(--bg-primary) 100%
+    );
+}
+
+/* Dimension line visual connector — vertical thread linking sections */
+.section-ref::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 16px;
+    background: var(--rule);
+    margin: 0 auto 8px;
+}
+
+
+/* ===== Dark Mode — Atmospheric Depth ===== */
+
+/* Depth and atmosphere beyond color inversion: layered shadow wells,
+   inner glow on surfaces, ambient vignetting. Gradient backgrounds
+   use CSS vars and don't need dark-mode overrides. */
+
+@media (prefers-color-scheme: dark) {
+    /* Inset glow on cards — simulates light leaking from screen edge */
+    :root:not([data-theme="light"]) .defender-card,
+    :root:not([data-theme="light"]) .software-card {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.03),
+            0 1px 3px rgba(0, 0, 0, 0.20);
+    }
+
+    :root:not([data-theme="light"]) .stat-card {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.03),
+            0 1px 2px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Hero depth — vignette effect via radial gradient overlay */
+    :root:not([data-theme="light"]) .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            ellipse 80% 60% at 50% 40%,
+            transparent 40%,
+            rgba(0, 0, 0, 0.15) 100%
+        );
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    :root:not([data-theme="light"]) .hero-content {
+        z-index: 2;
+    }
+
+    /* Section-alt — deeper shadow well (gradient inherits via vars) */
+    :root:not([data-theme="light"]) .section-alt {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    }
+
+    /* Accent warm glow on primary buttons */
+    :root:not([data-theme="light"]) .btn-primary:hover {
+        box-shadow: 0 0 12px rgba(212, 160, 48, 0.15);
+    }
+
+    /* Card hover — atmospheric lift with accent-tinted ring */
+    :root:not([data-theme="light"]) .defender-card:hover {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 8px 24px rgba(0, 0, 0, 0.30),
+            0 0 0 1px rgba(45, 95, 58, 0.10);
+    }
+
+    :root:not([data-theme="light"]) .software-card:hover {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 8px 24px rgba(0, 0, 0, 0.30),
+            0 0 0 1px rgba(26, 107, 122, 0.10);
+    }
+
+    /* Scroll rail dots — glow on active */
+    :root:not([data-theme="light"]) .scroll-rail__dot--active {
+        box-shadow: 0 0 6px rgba(212, 160, 48, 0.30);
+    }
+
+    /* Blockquote — warmer glow border in dark */
+    :root:not([data-theme="light"]) .writing-quote {
+        border-left-color: var(--accent-warm);
+    }
+}
+
+/* Manual dark theme toggle — atmospheric depth */
+[data-theme="dark"] .defender-card,
+[data-theme="dark"] .software-card {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 1px 3px rgba(0, 0, 0, 0.20);
+}
+
+[data-theme="dark"] .stat-card {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 80% 60% at 50% 40%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.15) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+[data-theme="dark"] .hero-content {
+    z-index: 2;
+}
+
+[data-theme="dark"] .section-alt {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    box-shadow: 0 0 12px rgba(212, 160, 48, 0.15);
+}
+
+[data-theme="dark"] .defender-card:hover {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 8px 24px rgba(0, 0, 0, 0.30),
+        0 0 0 1px rgba(45, 95, 58, 0.10);
+}
+
+[data-theme="dark"] .software-card:hover {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 8px 24px rgba(0, 0, 0, 0.30),
+        0 0 0 1px rgba(26, 107, 122, 0.10);
+}
+
+[data-theme="dark"] .scroll-rail__dot--active {
+    box-shadow: 0 0 6px rgba(212, 160, 48, 0.30);
+}
+
+[data-theme="dark"] .writing-quote {
+    border-left-color: var(--accent-warm);
+}
+
+
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
     .badge-dev::before {
