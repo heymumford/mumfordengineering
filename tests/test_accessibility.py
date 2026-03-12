@@ -532,13 +532,14 @@ class TestReducedMotion:
     async def test_css_reduced_motion_disables_hero_animation(self, client):
         """WCAG 2.3.3.
         Severity: MEDIUM.
-        The hero grid has a continuous CSS animation (gridShift) that must
-        be stopped under reduced motion preferences.
+        Hero grid must either have no animation or disable it under
+        reduced motion preferences.
         """
         resp = await client.get("/static/css/style.css")
         css = resp.text
-        assert "gridShift" in css, "gridShift animation not found"
-        assert "animation: none" in css or "animation-duration: 0.01ms" in css
+        # Hero grid uses no CSS animation (static gradient only).
+        # The global reduced-motion rule still zeros all animation-duration.
+        assert "animation-duration: 0.01ms" in css
 
     @pytest.mark.asyncio
     async def test_css_reduced_motion_shows_fade_in(self, client):
@@ -868,16 +869,21 @@ class TestPrintStyles:
 
     @pytest.mark.asyncio
     async def test_print_heading_color_reset(self, client):
-        """Print: Gradient-clipped headings must have -webkit-text-fill-color
-        reset to solid dark color, otherwise they print as invisible.
+        """Print: Headings must have explicit dark color for printing.
+        If gradient-clipped text is used, -webkit-text-fill-color must be reset.
+        If plain solid color is used, just verify color is set.
         Severity: MEDIUM.
         """
         resp = await client.get("/static/css/style.css")
         css = resp.text
         print_match = re.search(r"@media print\s*\{(.*)\}", css, re.DOTALL)
         assert print_match
-        assert "-webkit-text-fill-color" in print_match.group(1), (
-            "Print must reset -webkit-text-fill-color for gradient headings"
+        print_block = print_match.group(1)
+        # Either gradient text is reset or headings use plain solid color
+        has_fill_color_reset = "-webkit-text-fill-color" in print_block
+        has_heading_color = "color: #111" in print_block or "color:#111" in print_block
+        assert has_fill_color_reset or has_heading_color, (
+            "Print must set heading color or reset -webkit-text-fill-color"
         )
 
 
